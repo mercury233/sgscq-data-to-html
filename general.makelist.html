@@ -140,14 +140,14 @@ for (i in sgs_generals) {
         var devil_attack_step=Math.round(general.general_attack_step*201/165*100)/100;
         var devil_defense_step=Math.round(general.general_defense_step*201/165*100)/100;
         var devil_wisdom_step=Math.round(general.general_wisdom_step*201/165*100)/100;
-        general_tr.append($("<td data-sort-value='"+devil_hp+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_hp+"'>"+general.general_hp+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_attack+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_attack+"'>"+general.general_attack+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_defense+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_defense+"'>"+general.general_defense+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_wisdom+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_wisdom+"'>"+general.general_wisdom+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_hp_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_hp_step+"'>"+general.general_hp_step+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_attack_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_attack_step+"'>"+general.general_attack_step+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_defense_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_defense_step+"'>"+general.general_defense_step+"</span></td>"));
-        general_tr.append($("<td data-sort-value='"+devil_wisdom_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_wisdom_step+"'>"+general.general_wisdom_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_hp+"'><span data-tooltip-type='devil' data-tooltip='"+devil_hp+"'>"+general.general_hp+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_attack+"'><span data-tooltip-type='devil' data-tooltip='"+devil_attack+"'>"+general.general_attack+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_defense+"'><span data-tooltip-type='devil' data-tooltip='"+devil_defense+"'>"+general.general_defense+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_wisdom+"'><span data-tooltip-type='devil' data-tooltip='"+devil_wisdom+"'>"+general.general_wisdom+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_hp_step+"'><span data-tooltip-type='devil' data-tooltip='"+devil_hp_step+"'>"+general.general_hp_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_attack_step+"'><span data-tooltip-type='devil' data-tooltip='"+devil_attack_step+"'>"+general.general_attack_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_defense_step+"'><span data-tooltip-type='devil' data-tooltip='"+devil_defense_step+"'>"+general.general_defense_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_wisdom_step+"'><span data-tooltip-type='devil' data-tooltip='"+devil_wisdom_step+"'>"+general.general_wisdom_step+"</span></td>"));
     }
     
     var general_skill_html="";
@@ -172,7 +172,7 @@ for (i in sgs_generals) {
     }
     
     if (general_skill_html) {
-        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_skill_html+'</div>">查看</a></td>'));
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+general_skill_html+'">查看</a></td>'));
     }
     else {
         general_tr.append($("<td><small>暂无</small></td>"));
@@ -223,7 +223,7 @@ for (i in sgs_generals) {
         "</mark>："+fate_desc+fate_effect+"<br>";
     }
     if (general_fate_html) {
-        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_fate_html+'</div>">查看</a></td>'));
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+general_fate_html+'">查看</a></td>'));
     }
     else {
         general_tr.append($("<td><small>暂无</small></td>"));
@@ -239,14 +239,14 @@ for (i in sgs_generals) {
     }
     
     if (general_surrender_html) {
-        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_surrender_html+'</div>">查看</a></td>'));
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+general_surrender_html+'">查看</a></td>'));
     }
     else {
         general_tr.append($("<td><small>暂无</small></td>"));
     }
     
     if (general_desc=translate(general.desc)) {
-        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_desc+'</div>">查看</a></td>'));
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+general_desc+'">查看</a></td>'));
     }
     else {
         general_tr.append($("<td><small>暂无</small></td>"));
@@ -258,16 +258,28 @@ for (i in sgs_generals) {
 
 <script>
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
     $("#generals").stupidtable();
-    只显示神将魔将();
-    //$("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small).parent().parent().addClass("gray");
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('[data-tooltip-type="detail"]').tooltip({
+        "html": "true",
+        "placement": "left",
+        "trigger": "click hover",
+        "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
+    });    
+    $('[data-tooltip-type="devil"]').tooltip({
+        "placement": "bottom",
+        "title": function() {return "考虑到魔将突破的额外属性，数值应视为"+$(this).data("tooltip");}
+    });
     
     $("#releasenotesbutton").tooltip({
         "html": "true",
         "placement": "top",
         "title": $("#releasenotes").html()
     });
+    //只显示神将魔将();
+    //$("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small).parent().parent().addClass("gray");
+
 });
 
 function 只显示神将魔将() {
