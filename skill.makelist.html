@@ -32,7 +32,21 @@
                     </th>
                     <th role="button" data-sort="int" data-sort-default="desc" class="shorttitle">战力 <span class="caret"></span></th>
                     <th class="shorttitle">名称</th>
-                    <th role="button" data-sort="int" class="shorttitle">类型 <span class="caret"></span></th>
+                    <th class="shorttitle">
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+                            类型
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a role="button" onclick="类型筛选(1);">攻击</a></li>
+                            <li><a role="button" onclick="类型筛选(2);">控场</a></li>
+                            <li><a role="button" onclick="类型筛选(3);">卖血</a></li>
+                            <li><a role="button" onclick="类型筛选(4);">被动</a></li>
+                            <li><a role="button" onclick="类型筛选(0);">全部</a></li>
+                            </ul>
+                        </div>
+                    </th>
                     <th>效果</th>
                     <th class="middletitle">触发</th>
                     <th class="middletitle">目标</th>
@@ -196,6 +210,8 @@ for (i in sgs_skills) {
 </script>
 
 <script>
+var 是否只显示神技能=0;
+
 $(function () {
     $("#skills").stupidtable();
     $('[data-toggle="tooltip"]').tooltip();
@@ -217,6 +233,7 @@ $(function () {
 });
 
 function 只显示神技能() {
+    是否只显示神技能=1;
     $("#skills tbody tr td:nth-child(2):not(:contains('神'))").parent().hide();
     return false;
 }
@@ -236,8 +253,16 @@ function 只显示隐藏技能() {
 }
 
 function 显示全部() {
+    是否只显示神技能=0;
     $("#skills tbody tr").show();
     return false;
+}
+
+function 类型筛选(type) {
+    $("#skills tbody tr").show();
+    var 排除=$("#skills tbody tr td:nth-child(5)[data-sort-value!='"+type+"']").parent();
+    type ? 排除.hide() : 排除.show();
+    是否只显示神技能 ? 只显示神技能() : null;
 }
 </script>
 <script src="http://s4.cnzz.com/z_stat.php?id=1255737548&web_id=1255737548" language="JavaScript"></script>
