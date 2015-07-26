@@ -115,11 +115,11 @@ for (i in sgs_skills) {
             ("<mark data-toggle='tooltip' data-placement='bottom' title='成长:"+skill_param_step[j]+"'>"+skill_param_value[j]+"</mark>"+"(满级:"+Math.round((skill_param_value[j]+skill_param_step[j]*29)*100)/100+")") :
             skill_param_value[j]);
     }
-    skill_tr.append($("<td><div class='longtext'>"+skill_desc+"</div></td>"));
+    skill_tr.append($("<td>"+skill_desc+"</td>"));
 
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.phase_desc).replace(" ","<br>")+"</div></td>"));
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.range_desc)+"</div></td>"));
-    skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+(translate(skill.short_desc) ? translate(skill.short_desc) : "暂无简介")+'</div>">查看</a></td>'));
+    skill_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(skill.short_desc) ? translate(skill.short_desc) : "暂无简介")+'">查看</a></td>'));
     
     var skill_fate_html="";
     for (j in sgs_fates) {
@@ -140,7 +140,7 @@ for (i in sgs_skills) {
     }
 
     if (skill_fate_html) {
-        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+skill_fate_html+'</div>">查看</a></td>'));
+        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+skill_fate_html+'">查看</a></td>'));
     }
     else {
         skill_tr.append($('<td class="small">无</td>')); 
@@ -185,7 +185,7 @@ for (i in sgs_skills) {
         }
     }
     if (skill_source_html) {
-        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+skill_source_html+'</div>">查看</a></td>'));
+        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+skill_source_html+'">查看</a></td>'));
     }
     else {
         skill_tr.append($('<td class="small">无</td>')); 
@@ -197,10 +197,17 @@ for (i in sgs_skills) {
 
 <script>
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
     $("#skills").stupidtable();
+    /*$('[data-toggle="tooltip"]').tooltip();
     
-    $("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
+    $('[data-tooltip-type="detail"]').tooltip({
+        "html": "true",
+        "placement": "left",
+        "trigger": "click hover",
+        "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
+    });*/
+    
+    //$("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
 
     $("#releasenotesbutton").tooltip({
         "html": "true",

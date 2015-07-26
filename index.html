@@ -77,39 +77,13 @@
 <script>
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    $("#generals").stupidtable();
-    只显示神将魔将();
-    //$("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small).parent().parent().addClass("gray");
-    
+
     $("#releasenotesbutton").tooltip({
         "html": "true",
         "placement": "top",
         "title": $("#releasenotes").html()
     });
 });
-
-function 只显示神将魔将() {
-    $("#generals tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('魔'))").parent().hide();
-    return false;
-}
-
-function 不显示数据不完整武将() {
-    $("#generals tbody tr td:nth-child(8):contains('0.00')").parent().hide();
-    $("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small").parent().parent().hide();
-    return false;
-}
-
-function 只显示数据不完整武将() {
-    $("#generals tbody tr").hide();
-    $("#generals tbody tr td:nth-child(8):contains('0.00')").parent().show();
-    $("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small").parent().parent().show();
-    return false;
-}
-
-function 显示全部() {
-    $("#generals tbody tr").show();
-    return false;
-}
 </script>
 <script src="http://s4.cnzz.com/z_stat.php?id=1255737548&web_id=1255737548" language="JavaScript"></script>
 </body>

@@ -2,9 +2,11 @@
 a[title="站长统计"] {
 	display: none;
 }
+/*首页字体*/
 .index {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, '微软雅黑', '黑体', sans-serif
 }
+/*首页页头*/
 .index header {
     height: 180px;
     padding: 30px 0;
@@ -13,23 +15,22 @@ a[title="站长统计"] {
     text-shadow: 0 2px 0 rgba(0,0,0,.1);
     background-color: #233333;
 }
-
+/*短分割线*/
 .index .container hr {
     margin-top: 30px;
     width: 100px;
 }
-
-div.bigicon {
+/*首页大链接*/
+.index div.bigicon {
     text-align: center;
     padding:10px;
 }
-
-div.bigicon img {
+/*首页大中图片自动适应宽度*/
+.index div.bigicon img {
     display: inline-block;
     max-width: 100%;
     height: auto;
 }
-
 /*页脚*/
 footer {
     margin-left: 1em;
@@ -81,22 +82,24 @@ div#releasenotes {
     padding: 2px 6px;
     line-height: 1.5;
 }
+/*技能表行高默认2行*/
 #skills :not(thead) tr {
     height: 60px;
 }
+/*技能表每行垂直居中*/
 #skills th,#skills td {
     min-width: 75px;
     vertical-align: middle;
 }
+/*用于技能表中名称、缘分等*/
 #skills .shorttitle {
     width: 75px;
 }
+/*用于技能表中触发、目标等*/
 #skills .middletitle {
     width: 116px;
 }
-#skills .longtext {
-    /*max-width:30em;*/
-}
+/*用于技能表中触发、目标等*/
 #skills .shorttext {
     width:100px;
     /*max-height:40px;*/
