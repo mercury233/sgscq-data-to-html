@@ -104,6 +104,7 @@ var xs={"Cfg":{"System":{}}};
 var sgs_generals=xs.Cfg.System.sgs_generals;
 var sgs_i18n=xs.Cfg.System.sgs_i18n;
 var sgs_equipments=xs.Cfg.System.sgs_equipments;
+var sgs_upgrade_exp_conf=xs.Cfg.System.sgs_upgrade_exp_conf;
 var sgs_refine_conf=xs.Cfg.System.sgs_refine_conf;
 var sgs_eated_exp_conf=xs.Cfg.System.sgs_eated_exp_conf;
 var sgs_fates=xs.Cfg.System.sgs_fates;
@@ -125,8 +126,8 @@ for (i in sgs_equipments) {
     equip_tr.append($("<td data-sort-value='"+equip.grade+"'>"+grade_types[equip.grade]+"</td>"));
     equip_tr.append($("<td>"+translate(equip.name)+"</td>"));
     equip_tr.append($("<td data-sort-value='"+equip.equipment_type+"'>"+equip_types[equip.equipment_type]+"</td>"));
-    equip_tr.append($("<td>"+equip.effect_value+"</td>"));
-    equip_tr.append($("<td>"+equip.effect_step+"</td>"));
+    equip_tr.append($("<td>"+(equip.effect_value-0)+"</td>"));
+    equip_tr.append($("<td>"+(equip.effect_step-0)+"</td>"));
     
     var equip_top=0;
     if (equip_top=sgs_refine_conf[equip.refine_bonus_type].length) {
@@ -145,7 +146,10 @@ for (i in sgs_equipments) {
     equip_tr.append($("<td>"+equip_250_value+"</td>"));
     
     equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(equip.desc) ? translate(equip.desc) : "暂无简介")+'">查看</a></td>'));
-    equip_tr.append($("<td>"+4+"</td>"));
+
+    var equip_eated_exp=Math.floor(sgs_eated_exp_conf[equip.refine_eaten_exp_type][0]["num"]);
+
+    equip_tr.append($("<td>"+equip_eated_exp+"</td>"));
     equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(equip.desc) ? translate(equip.desc) : "暂无简介")+'">查看</a></td>'));
     
     var equip_fate_html="";
