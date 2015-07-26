@@ -162,7 +162,7 @@ for (i in sgs_skills) {
                 skill_source_html+="通过技能抢夺可获得<br>";
             break;
             case 6:
-                skill_source_html+="通过碎片合成可获得<br>";
+                skill_source_html+="臣服"+translate(skill.source[j].param_value+"01")+"可获得<br>";
             break;
             case 7:
                 skill_source_html+="通过臣服可获得<br>";
@@ -198,14 +198,14 @@ for (i in sgs_skills) {
 <script>
 $(function () {
     $("#skills").stupidtable();
-    /*$('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
     
     $('[data-tooltip-type="detail"]').tooltip({
         "html": "true",
         "placement": "left",
         "trigger": "click hover",
         "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
-    });*/
+    });
     
     //$("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
 
