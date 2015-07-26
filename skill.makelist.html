@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇技能数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,技能,排行,数据" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有技能的所有数据，包括属性、成长等。未上线的技能也有显示哦！" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped" id="skills">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int" class="shorttitle">ID <span class="caret"></th>
+                    <th class="shorttitle">
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true">
+                            等级
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a role="button" onclick="只显示神技能();">只显示神技能</a></li>
+                            <li><a role="button" onclick="不显示未完成技能();" data-toggle="tooltip" data-placement="right" data-html="true" title="<div class='text-left short'>不显示没有完整属性的技能。</div>">不显示未完成技能</a></li>
+                            <li><a role="button" onclick="只显示隐藏技能();" data-toggle="tooltip" data-placement="right" data-html="true" title="<div class='text-left short'>只显示未完成或未上线的技能。</div>">只显示隐藏技能</a></li>
+                            <li><a role="button" onclick="显示全部();">显示全部</a></li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th role="button" data-sort="int" data-sort-default="desc" class="shorttitle">战力 <span class="caret"></span></th>
+                    <th class="shorttitle">名称</th>
+                    <th role="button" data-sort="int" class="shorttitle">类型 <span class="caret"></span></th>
+                    <th>效果</th>
+                    <th class="middletitle">触发</th>
+                    <th class="middletitle">目标</th>
+                    <th class="shorttitle">简介</th>
+                    <th class="shorttitle">缘分</th>
+                    <th class="shorttitle">来源</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <span><!--谜之BUG，不加一个空元素会导致两个按钮紧挨着--></span>
+            <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>版本：7.20体验服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2015-07-25 首次发布</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_skills.js"></script>
+<script src="data\sgs_fates.js"></script>
+
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_skills=xs.Cfg.System.sgs_skills;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+
+var grade_types=["坑","神","金","银","铜","魔"];
+var skill_types=["坑","攻击","控场","卖血","被动"];
+var fate_addition_types=["坑","攻","防","血","智"];
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+for (i in sgs_skills) {
+    var skill=sgs_skills[i];
+
+    var skill_tr=$("<tr>");
+    
+    skill_tr.append($("<td>"+skill.id+"</td>"));
+    skill_tr.append($("<td data-version='"+skill.is_version+"'>"+grade_types[skill.grade]+"</td>"));
+    skill_tr.append($("<td>"+skill.fighting+"</td>"));
+    skill_tr.append($("<td><strong>"+translate(skill.name)+"</strong></td>"));
+    skill_tr.append($("<td data-sort-value='"+(skill.skill_type).replace("0","9")+"'>"+skill_types[skill.skill_type]+"</td>"));
+    
+    eval("var skill_param_value=["+skill.desc_param_value+"]");
+    eval("var skill_param_step=["+skill.desc_param_step+"]");
+    var skill_desc=translate(skill.desc);
+    for (j=0; j<10; j++) {
+        skill_desc=skill_desc.replace("$"+(j+1),
+            skill_param_step[j] ? 
+            ("<mark data-toggle='tooltip' data-placement='bottom' title='成长:"+skill_param_step[j]+"'>"+skill_param_value[j]+"</mark>"+"(满级:"+Math.round((skill_param_value[j]+skill_param_step[j]*29)*100)/100+")") :
+            skill_param_value[j]);
+    }
+    skill_tr.append($("<td><div class='longtext'>"+skill_desc+"</div></td>"));
+
+    skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.phase_desc).replace(" ","<br>")+"</div></td>"));
+    skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.range_desc)+"</div></td>"));
+    skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+(translate(skill.short_desc) ? translate(skill.short_desc) : "暂无简介")+'</div>">查看</a></td>'));
+    
+    var skill_fate_html="";
+    for (j in sgs_fates) {
+        if (sgs_fates[j].fate_object[0]==skill.id) {
+            var fate=sgs_fates[j];
+            var skill_fate_general_name="";
+            for (k in sgs_generals) {
+                for (l in sgs_generals[k].general_fate_id) {
+                    if (sgs_generals[k].general_fate_id[l]==sgs_fates[j].id) {
+                        skill_fate_general_name=translate(sgs_generals[k].name);
+                    }
+                }
+            }
+            var fate_desc="";
+            fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
+            skill_fate_html+="<mark>"+skill_fate_general_name+"</mark>：<mark>"+translate(fate.name)+"</mark>："+fate_effect+"<br>";
+        }
+    }
+
+    if (skill_fate_html) {
+        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+skill_fate_html+'</div>">查看</a></td>'));
+    }
+    else {
+        skill_tr.append($('<td class="small">无</td>')); 
+    }
+    
+    var skill_source_html="";
+    for (j in skill.source) {
+        switch (skill.source[j].source_type*1) {
+            case 2:
+                skill_source_html+="通过 "+translate(skill.source[j].param_value+"01")+" 关卡掉落<br>";
+            break;
+            case 3:
+                skill_source_html+="通过碎片合成可获得<br>";
+            break;
+            case 4:
+                skill_source_html+="通过开宝箱可获得<br>";
+            break;
+            case 5:
+                skill_source_html+="通过技能抢夺可获得<br>";
+            break;
+            case 6:
+                skill_source_html+="通过碎片合成可获得<br>";
+            break;
+            case 7:
+                skill_source_html+="通过臣服可获得<br>";
+            break;
+            case 8:
+                skill_source_html+="通过获得 "+translate(skill.source[j].param_value+"01")+" 后可获得<br>";
+            break;
+            case 10:
+                skill_source_html+="通过活动可获得<br>";
+            break;
+            case 16:
+                skill_source_html+="图鉴点亮[武将]"+translate(skill.source[j].param_value+"01")+"<br>";
+            break;
+            case 19:
+                skill_source_html+="通过任务可获得<br>";
+            break;
+            default:
+                alert(translate(skill.name)+skill.source[j].source_type);
+            break;
+        }
+    }
+    if (skill_source_html) {
+        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+skill_source_html+'</div>">查看</a></td>'));
+    }
+    else {
+        skill_tr.append($('<td class="small">无</td>')); 
+    }
+
+    $("#skills").append(skill_tr);
+}
+</script>
+
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#skills").stupidtable();
+    
+    $("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
+
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+});
+
+function 只显示神技能() {
+    $("#skills tbody tr td:nth-child(2):not(:contains('神'))").parent().hide();
+    return false;
+}
+
+function 不显示未完成技能() {
+    $("#skills tbody tr td:nth-child(2):contains('坑')").parent().hide();
+    $("#skills tbody tr td div:empty").parent().parent().hide();
+    //$("#skills tbody tr td:nth-child(14) a[data-original-title*='暂无'] , #generals tbody tr td:nth-child(15) a[data-original-title*='暂无']").parent().parent().hide();
+    return false;
+}
+
+function 只显示隐藏技能() {
+    $("#skills tbody tr").hide();
+    $("#skills tbody tr td:nth-child(2):contains('坑')").parent().show();
+    $("#skills tbody tr td[data-version*='0']").parent().show();
+    return false;
+}
+
+function 显示全部() {
+    $("#skills tbody tr").show();
+    return false;
+}
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1255737548&web_id=1255737548" language="JavaScript"></script>
+</body>
+</html>

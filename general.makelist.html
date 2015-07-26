@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇武将数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,武将,排行,数据,成长,缘分,臣服,S将,A将,B将" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有武将的所有数据，包括属性、成长、技能、缘分、臣服等。未上线的武将也有显示哦！" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped" id="generals">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int">ID <span class="caret"></th>
+                    <th>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true">
+                            等级
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a role="button" onclick="只显示神将魔将();">只显示神将魔将</a></li>
+                            <li><a role="button" onclick="不显示数据不完整武将();" data-toggle="tooltip" data-placement="right" data-html="true" title="<div class='text-left wide'>不显示没有属性/缘分/臣服的武将，这些武将通常没有做完，无法获得，只作为敌将出现。</div>">不显示数据不完整武将</a></li>
+                            <li><a role="button" onclick="只显示数据不完整武将();" data-toggle="tooltip" data-placement="right" data-html="true" title="<div class='text-left wide'>只显示没有属性/缘分/臣服的武将，注意，这里的数据不代表武将最终上线时的数据。</div>">只显示数据不完整武将</a></li>
+                            <li><a role="button" onclick="显示全部();">显示全部</a></li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>武将名</th>
+                    <th role="button" data-sort="float" data-sort-default="desc">血 <span class="caret"></span></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">攻 <span class="caret"></span></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">防 <span class="caret"></span></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">智 <span class="caret"></span></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">血成长 <span class="caret"></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">攻成长 <span class="caret"></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">防成长 <span class="caret"></th>
+                    <th role="button" data-sort="float" data-sort-default="desc">智成长 <span class="caret"></th>
+                    <th>技能</th>
+                    <th>副将</th>
+                    <th>缘分</th>
+                    <th>臣服</th>
+                    <th>简介</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <span><!--谜之BUG，不加一个空元素会导致两个按钮紧挨着--></span>
+            <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>版本：7.20体验服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2015-07-25 首次发布
+                            <ul>
+                                <li>更新至体验服7.20更新版本（7.22更新未改动数据）</li>
+                                <li>增加魔将属性修正功能（计算方式为5星魔将201%相对于5星神将165%）</li>
+                                <li>默认只显示神将魔将</li>
+                            </ul>
+                        </li>
+                        <li>2015-07-13 内测</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_skills.js"></script>
+<script src="data\sgs_fates.js"></script>
+<script src="data\sgs_surrender.js"></script>
+<script src="data\sgs_general_surrender.js"></script>
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_skills=xs.Cfg.System.sgs_skills;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_surrender=xs.Cfg.System.sgs_surrender;
+var sgs_general_surrender=xs.Cfg.System.sgs_general_surrender;
+var grade_types=["坑","神","金","银","铜","魔"];
+var skill_types=["坑","攻击","控场","卖血","被动"];
+var fate_addition_types=["坑","攻","防","血","智"];
+var lieutenant_skill_types=["无","神锋","不败","圣躯","仙策","英躯"];
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+
+for (i in sgs_generals) {
+    var general=sgs_generals[i];
+
+    var general_tr=$("<tr>");
+    
+    var general_name=translate(general.name);
+    general_tr.append($("<td>"+general.id+"</td>"));
+    general_tr.append($("<td>"+grade_types[general.grade]+"</td>"));
+    general_tr.append($("<td>"+general_name+"</td>"));
+    
+    if (general.grade!=5) {
+        general_tr.append($("<td>"+general.general_hp+"</td>"));
+        general_tr.append($("<td>"+general.general_attack+"</td>"));
+        general_tr.append($("<td>"+general.general_defense+"</td>"));
+        general_tr.append($("<td>"+general.general_wisdom+"</td>"));
+        general_tr.append($("<td>"+general.general_hp_step+"</td>"));
+        general_tr.append($("<td>"+general.general_attack_step+"</td>"));
+        general_tr.append($("<td>"+general.general_defense_step+"</td>"));
+        general_tr.append($("<td>"+general.general_wisdom_step+"</td>"));
+    }
+    else {
+        var devil_hp=Math.round(general.general_hp*201/165*100)/100;
+        var devil_attack=Math.round(general.general_attack*201/165*100)/100;
+        var devil_defense=Math.round(general.general_defense*201/165*100)/100;
+        var devil_wisdom=Math.round(general.general_wisdom*201/165*100)/100;
+        var devil_hp_step=Math.round(general.general_hp_step*201/165*100)/100;
+        var devil_attack_step=Math.round(general.general_attack_step*201/165*100)/100;
+        var devil_defense_step=Math.round(general.general_defense_step*201/165*100)/100;
+        var devil_wisdom_step=Math.round(general.general_wisdom_step*201/165*100)/100;
+        general_tr.append($("<td data-sort-value='"+devil_hp+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_hp+"'>"+general.general_hp+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_attack+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_attack+"'>"+general.general_attack+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_defense+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_defense+"'>"+general.general_defense+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_wisdom+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_wisdom+"'>"+general.general_wisdom+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_hp_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_hp_step+"'>"+general.general_hp_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_attack_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_attack_step+"'>"+general.general_attack_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_defense_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_defense_step+"'>"+general.general_defense_step+"</span></td>"));
+        general_tr.append($("<td data-sort-value='"+devil_wisdom_step+"'><span data-toggle='tooltip' data-placement='bottom' title='考虑到魔将突破的额外属性，数值应视为"+devil_wisdom_step+"'>"+general.general_wisdom_step+"</span></td>"));
+    }
+    
+    var general_skill_html="";
+    var general_skill=sgs_skills[general.general_naturalskill_id];
+    if (general_skill) {
+        eval("var general_skill_param_value=["+general_skill.desc_param_value+"]");
+        eval("var general_skill_param_step=["+general_skill.desc_param_step+"]");
+        var general_skill_desc=translate(general_skill.desc);
+        for (j=0; j<10; j++) {
+            general_skill_desc=general_skill_desc.replace("$"+(j+1),
+                general_skill_param_step[j] ? 
+                ("<mark>"+general_skill_param_value[j]+"</mark>"+"(满级:"+Math.round((general_skill_param_value[j]+general_skill_param_step[j]*29)*100)/100+")") :
+                general_skill_param_value[j]);
+        }
+        general_skill_html=translate(general_skill.short_desc)+
+        "<br><mark>名称</mark>："+translate(general_skill.name)+
+        "<br><mark>类型</mark>："+skill_types[general_skill.skill_type]+
+        "<br><mark>触发</mark>："+translate(general_skill.phase_desc)+
+        "<br><mark>目标</mark>："+translate(general_skill.range_desc)+
+        "<br><mark>效果</mark>："+general_skill_desc+
+        "";
+    }
+    
+    if (general_skill_html) {
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_skill_html+'</div>">查看</a></td>'));
+    }
+    else {
+        general_tr.append($("<td><small>暂无</small></td>"));
+    }
+    
+    general_tr.append($("<td><small>"+lieutenant_skill_types[general.lieutenant_skill_id]+"</small></td>"));
+
+    var general_fate_html="";
+    for (j in general.general_fate_id) {
+        var fate=sgs_fates[general.general_fate_id[j]];
+
+        var fate_desc="";
+        switch (fate.fate_type*1) {
+            case 1: //武将
+                fate_desc="同时上阵";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 2: //未知
+                fate_desc="";
+                //alert(fate);
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 3: //装备
+                fate_desc="装备";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 4: //技能
+                fate_desc="装备";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            default:
+                //alert(fate);
+            break;
+        }
+        fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
+        if (fate.fate_effect_step>0) {
+            fate_effect="其中首个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%,每多1个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect_step+"%";
+        }
+        general_fate_html+="<mark>"+translate(fate.name)+
+        "</mark>："+fate_desc+fate_effect+"<br>";
+    }
+    if (general_fate_html) {
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_fate_html+'</div>">查看</a></td>'));
+    }
+    else {
+        general_tr.append($("<td><small>暂无</small></td>"));
+    }
+        
+    var general_surrender_html="";
+    for (j in sgs_general_surrender[i]) {
+        var surrender=sgs_surrender[sgs_general_surrender[i][j].surrender_id];
+        general_surrender_html+="<mark>"+translate(surrender.surrender_title)+"</mark>："+translate(surrender.surrender_desc)+"<br>";
+    }
+    if (general.surrender_gift_id) {
+        general_surrender_html+="<mark>臣服奖励</mark>："+translate("itemdesc"+general.surrender_gift_id);
+    }
+    
+    if (general_surrender_html) {
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_surrender_html+'</div>">查看</a></td>'));
+    }
+    else {
+        general_tr.append($("<td><small>暂无</small></td>"));
+    }
+    
+    if (general_desc=translate(general.desc)) {
+        general_tr.append($('<td><a class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" data-trigger="click hover" data-html="true" title="<div class=\'text-left my-mark\'>'+general_desc+'</div>">查看</a></td>'));
+    }
+    else {
+        general_tr.append($("<td><small>暂无</small></td>"));
+    }
+    
+    $("#generals").append(general_tr);
+}
+</script>
+
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#generals").stupidtable();
+    只显示神将魔将();
+    //$("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small).parent().parent().addClass("gray");
+    
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+});
+
+function 只显示神将魔将() {
+    $("#generals tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('魔'))").parent().hide();
+    return false;
+}
+
+function 不显示数据不完整武将() {
+    $("#generals tbody tr td:nth-child(8):contains('0.00')").parent().hide();
+    $("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small").parent().parent().hide();
+    return false;
+}
+
+function 只显示数据不完整武将() {
+    $("#generals tbody tr").hide();
+    $("#generals tbody tr td:nth-child(8):contains('0.00')").parent().show();
+    $("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small").parent().parent().show();
+    return false;
+}
+
+function 显示全部() {
+    $("#generals tbody tr").show();
+    return false;
+}
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1255737548&web_id=1255737548" language="JavaScript"></script>
+</body>
+</html>

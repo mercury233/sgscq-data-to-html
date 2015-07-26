@@ -1,0 +1,1 @@
+xs.Cfg.System.sgs_random_name = [];

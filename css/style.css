@@ -1,0 +1,108 @@
+/*干掉站长统计的文本*/
+a[title="站长统计"] {
+	display: none;
+}
+.index {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, '微软雅黑', '黑体', sans-serif
+}
+.index header {
+    height: 180px;
+    padding: 30px 0;
+    color: #FFFFFF;
+    text-align: center;
+    text-shadow: 0 2px 0 rgba(0,0,0,.1);
+    background-color: #233333;
+}
+
+.index .container hr {
+    margin-top: 30px;
+    width: 100px;
+}
+
+div.bigicon {
+    text-align: center;
+    padding:10px;
+}
+
+div.bigicon img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
+
+/*页脚*/
+footer {
+    margin-left: 1em;
+    margin-right:1em;
+    margin-bottom:1em;
+}
+/*工具提示默认宽度过窄，不足以正常显示全部内容*/
+div.tooltip-inner {
+    max-width: 500px;
+}
+div.tooltip-inner .wide {
+    min-width: 250px;
+}
+div.tooltip-inner .short {
+    min-width: 100px;
+}
+/*升序排序时的倒三角*/
+.sorting-asc .caret {
+content: "";
+border-top: 0;
+border-bottom: 4px dashed;
+border-bottom: 4px solid\9;
+}
+/*自定义工具提示中的mark标签*/
+div.tooltip .my-mark mark {
+    border-radius: 4px;
+    line-height: 22px;
+    background-color: #FFF;
+}
+/*更新记录中嵌套的ul*/
+div.tooltip-inner li ul {
+    padding-left: 1em;
+}
+/*版本更新说明，由JS调用到tooltip里，故不显示*/
+div#releasenotes {
+    display: none;
+}
+/*灰色显示数据不完整武将*/
+#generals .gray {
+    color:#999;
+}
+/*“暂无”文字的美化*/
+#generals small {
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 2px 6px;
+    line-height: 1.5;
+}
+#skills :not(thead) tr {
+    height: 60px;
+}
+#skills th,#skills td {
+    min-width: 75px;
+    vertical-align: middle;
+}
+#skills .shorttitle {
+    width: 75px;
+}
+#skills .middletitle {
+    width: 116px;
+}
+#skills .longtext {
+    /*max-width:30em;*/
+}
+#skills .shorttext {
+    width:100px;
+    /*max-height:40px;*/
+}
+/*自定义mark标签*/
+#skills mark {
+    border-radius: 4px;
+    background-color: #DDD;
+}
