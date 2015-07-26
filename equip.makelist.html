@@ -183,7 +183,7 @@ for (i in sgs_equipments) {
     for (j in equip.source) {
         switch (equip.source[j].source_type*1) {
             case 2:
-                equip_source_html+="通过 "+translate(equip.source[j].param_value+"01")+" 关卡掉落<br>";
+                equip_source_html+="通关"+translate(equip.source[j].param_value+"01")+"<br>";
             break;
             case 3:
                 equip_source_html+="通过碎片合成可获得<br>";

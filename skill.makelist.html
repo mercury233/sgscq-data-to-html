@@ -164,7 +164,7 @@ for (i in sgs_skills) {
     for (j in skill.source) {
         switch (skill.source[j].source_type*1) {
             case 2:
-                skill_source_html+="通过 "+translate(skill.source[j].param_value+"01")+" 关卡掉落<br>";
+                skill_source_html+="通关"+translate(skill.source[j].param_value+"01")+"<br>";
             break;
             case 3:
                 skill_source_html+="通过碎片合成可获得<br>";
