@@ -64,6 +64,10 @@ div.tooltip .my-mark mark {
 div.tooltip-inner li ul {
     padding-left: 1em;
 }
+/*下拉菜单宽度优化*/
+.dropdown-menu {
+    min-width: 70px;
+}
 /*版本更新说明，由JS调用到tooltip里，故不显示*/
 div#releasenotes {
     display: none;

@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇装备数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,装备,数据,成长,精炼" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有装备的所有数据，包括属性、成长等。" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped" id="equips">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int">ID <span class="caret"></th>
+                    <th>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true">
+                            等级
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a role="button" onclick="等级筛选(1);">神</a></li>
+                            <li><a role="button" onclick="等级筛选(2);">金</a></li>
+                            <li><a role="button" onclick="等级筛选(3);">银</a></li>
+                            <li><a role="button" onclick="等级筛选(4);">铜</a></li>
+                            <li><a role="button" onclick="等级筛选(0);">全部</a></li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>名称</th>
+                    <th>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+                            类型
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a role="button" onclick="类型筛选(1);">武器</a></li>
+                            <li><a role="button" onclick="类型筛选(2);">防具</a></li>
+                            <li><a role="button" onclick="类型筛选(3);">坐骑</a></li>
+                            <li><a role="button" onclick="类型筛选(4);">锦囊</a></li>
+                            <li><a role="button" onclick="类型筛选(0);">全部</a></li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th role="button" data-sort="int" data-sort-default="desc">属性 <span class="caret"></span></th>
+                    <th role="button" data-sort="int" data-sort-default="desc">成长 <span class="caret"></span></th>
+                    <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="最高精炼的星数">精炼上限</span> <span class="caret"></span></th>
+                    <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="强化250级精炼满星的属性">成品属性</span> <span class="caret"></span></th>
+                    <th><span data-toggle="tooltip" data-placement="bottom" title="每级精炼需要的装备经验">精炼需要</span></th>
+                    <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="作为精炼材料给其他装备提供的装备经验">精炼经验</span> <span class="caret"></span></th>
+                    <th>简介</th>
+                    <th>缘分</th>
+                    <th>来源</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <span><!--谜之BUG，不加一个空元素会导致两个按钮紧挨着--></span>
+            <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>游戏版本：7.20体验服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2015-07-25 首次发布</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_equipments.js"></script>
+<script src="data\sgs_refine_conf.js"></script>
+<script src="data\sgs_eated_exp_conf.js"></script>
+<script src="data\sgs_fates.js"></script>
+
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_equipments=xs.Cfg.System.sgs_equipments;
+var sgs_refine_conf=xs.Cfg.System.sgs_refine_conf;
+var sgs_eated_exp_conf=xs.Cfg.System.sgs_eated_exp_conf;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+
+var grade_types=["坑","神","金","银","铜","魔"];
+var equip_types=["坑","武器","防具","坐骑","锦囊"];
+var fate_addition_types=["坑","攻","防","血","智"];
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+for (i in sgs_equipments) {
+    var equip=sgs_equipments[i];
+
+    var equip_tr=$("<tr>");
+    
+    equip_tr.append($("<td>"+equip.id+"</td>"));
+    equip_tr.append($("<td data-sort-value='"+equip.grade+"'>"+grade_types[equip.grade]+"</td>"));
+    equip_tr.append($("<td>"+translate(equip.name)+"</td>"));
+    equip_tr.append($("<td data-sort-value='"+equip.equipment_type+"'>"+equip_types[equip.equipment_type]+"</td>"));
+    equip_tr.append($("<td>"+equip.effect_value+"</td>"));
+    equip_tr.append($("<td>"+equip.effect_step+"</td>"));
+    
+    var equip_top=0;
+    if (equip_top=sgs_refine_conf[equip.refine_bonus_type].length) {
+        equip_top--;
+    }
+    else {
+        equip_top=0;
+        for (j in sgs_refine_conf[equip.refine_bonus_type]) {
+            equip_top++;
+        }
+        equip_top--;
+    }
+    equip_tr.append($("<td>"+equip_top+"</td>"));
+    
+    var equip_250_value=Math.floor((equip.effect_value-0+equip.effect_step*249)*(1-0+equip_top/10));
+    equip_tr.append($("<td>"+equip_250_value+"</td>"));
+    
+    equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(equip.desc) ? translate(equip.desc) : "暂无简介")+'">查看</a></td>'));
+    equip_tr.append($("<td>"+4+"</td>"));
+    equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(equip.desc) ? translate(equip.desc) : "暂无简介")+'">查看</a></td>'));
+    
+    var equip_fate_html="";
+    for (j in sgs_fates) {
+        if (sgs_fates[j].fate_object[0]==equip.id) {
+            var fate=sgs_fates[j];
+            var equip_fate_general_name="";
+            for (k in sgs_generals) {
+                for (l in sgs_generals[k].general_fate_id) {
+                    if (sgs_generals[k].general_fate_id[l]==sgs_fates[j].id) {
+                        equip_fate_general_name=translate(sgs_generals[k].name);
+                    }
+                }
+            }
+            fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
+            equip_fate_html+="<mark>"+equip_fate_general_name+"</mark>：<mark>"+translate(fate.name)+"</mark>："+fate_effect+"<br>";
+        }
+        else if (sgs_fates[j].id==42101403) { //枭姬
+            for (k in sgs_fates[j].fate_object) {
+                if (sgs_fates[j].fate_object[k]==equip.id) {
+                    equip_fate_html+="<mark>蜀·孙尚香</mark>：<mark>枭姬</mark>：<mark>智</mark>+20%<br>";
+                }
+            }
+        }
+    }
+
+    if (equip_fate_html) {
+        equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+equip_fate_html+'">查看</a></td>'));
+    }
+    else {
+        equip_tr.append($('<td class="small">无</td>')); 
+    }
+    
+    var equip_source_html="";
+    for (j in equip.source) {
+        switch (equip.source[j].source_type*1) {
+            case 2:
+                equip_source_html+="通过 "+translate(equip.source[j].param_value+"01")+" 关卡掉落<br>";
+            break;
+            case 3:
+                equip_source_html+="通过碎片合成可获得<br>";
+            break;
+            case 4:
+                equip_source_html+="通过开宝箱可获得<br>";
+            break;
+            case 5:
+                equip_source_html+="通过技能抢夺可获得<br>";
+            break;
+            case 6:
+                equip_source_html+="臣服"+translate(equip.source[j].param_value+"01")+"可获得<br>";
+            break;
+            case 7:
+                equip_source_html+="通过臣服可获得<br>";
+            break;
+            case 8:
+                equip_source_html+="通过获得 "+translate(equip.source[j].param_value+"01")+" 后可获得<br>";
+            break;
+            case 10:
+                equip_source_html+="通过活动可获得<br>";
+            break;
+            case 16:
+                equip_source_html+="图鉴点亮[武将]"+translate(equip.source[j].param_value+"01")+"<br>";
+            break;
+            case 19:
+                equip_source_html+="通过任务可获得<br>";
+            break;
+            default:
+                alert(translate(equip.name)+equip.source[j].source_type);
+            break;
+        }
+    }
+    if (equip_source_html) {
+        equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+equip_source_html+'">查看</a></td>'));
+    }
+    else {
+        equip_tr.append($('<td class="small">无</td>')); 
+    }
+    
+    $("#equips").append(equip_tr);
+}
+</script>
+
+<script>
+var 当前选择等级=0;
+var 当前选择类型=0;
+
+$(function () {
+    $("#equips").stupidtable();
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('[data-tooltip-type="detail"]').tooltip({
+        "html": "true",
+        "placement": "left",
+        "trigger": "click hover",
+        "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
+    });
+    
+    //$("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
+
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+});
+
+// 思路：首先显示所有项，分别按两种条件执行筛选，隐藏不符合条件的项。某种条件选择1234的情况直接隐藏，不选择(或称为选择全部)的情况用选择0表示，显示所有的。如果有选择0，就优先执行。
+// 算法苦手_(:з」∠)_
+function 等级筛选(grade) {
+    当前选择等级=grade;
+    执行筛选();
+    return false;
+}
+function 类型筛选(type) {
+    当前选择类型=type;
+    执行筛选();
+    return false;
+}
+function 执行筛选() {
+    显示全部();
+    if (当前选择等级>=当前选择类型) {
+        筛选类型();
+        筛选等级();
+    }
+    else {
+        筛选等级();
+        筛选类型();
+    }
+}
+function 筛选等级() {
+    var 排除=$("#equips tbody tr td:nth-child(2)[data-sort-value!='"+当前选择等级+"']").parent();
+    当前选择等级 ? 排除.hide() : 排除.show();
+}
+function 筛选类型() {
+    var 排除=$("#equips tbody tr td:nth-child(4)[data-sort-value!='"+当前选择类型+"']").parent();
+    当前选择类型 ? 排除.hide() : 排除.show();
+}
+function 显示全部() {
+    $("#equips tbody tr").show();
+    return false;
+}
+
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1255737548&web_id=1255737548" language="JavaScript"></script>
+</body>
+</html>
