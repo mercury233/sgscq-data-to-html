@@ -1,1 +1,0 @@
-xs.Cfg.System.sgs_map_conf = [];
