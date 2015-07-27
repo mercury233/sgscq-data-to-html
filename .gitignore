@@ -1,2 +1,4 @@
 data/*
 !data/readme.txt
+images/src/*
+fonts
