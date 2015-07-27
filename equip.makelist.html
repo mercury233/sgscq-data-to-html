@@ -50,7 +50,7 @@
                     <th role="button" data-sort="int" data-sort-default="desc">属性 <span class="caret"></span></th>
                     <th role="button" data-sort="int" data-sort-default="desc">成长 <span class="caret"></span></th>
                     <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="最高精炼的星数">精炼上限</span> <span class="caret"></span></th>
-                    <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="强化250级精炼满星的属性">成品属性</span> <span class="caret"></span></th>
+                    <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="强化300级精炼满星的属性">成品属性</span> <span class="caret"></span></th>
                     <th><span data-toggle="tooltip" data-placement="bottom" title="每级精炼需要的装备经验">精炼需要</span></th>
                     <th role="button" data-sort="int" data-sort-default="desc"><span data-toggle="tooltip" data-placement="bottom" title="作为精炼材料给其他装备提供的装备经验">精炼经验</span> <span class="caret"></span></th>
                     <th>简介</th>
@@ -95,6 +95,7 @@ var xs={"Cfg":{"System":{}}};
 <script src="data\sgs_i18n.js"></script>
 <script src="data\sgs_generals.js"></script>
 <script src="data\sgs_equipments.js"></script>
+<script src="data\sgs_upgrade_exp_conf.js"></script>
 <script src="data\sgs_refine_conf.js"></script>
 <script src="data\sgs_eated_exp_conf.js"></script>
 <script src="data\sgs_fates.js"></script>
@@ -142,10 +143,23 @@ for (i in sgs_equipments) {
     }
     equip_tr.append($("<td>"+equip_top+"</td>"));
     
-    var equip_250_value=Math.floor((equip.effect_value-0+equip.effect_step*249)*(1-0+equip_top/10));
-    equip_tr.append($("<td>"+equip_250_value+"</td>"));
+    var equip_300_value=Math.floor((equip.effect_value-0+equip.effect_step*299)*(1-0+equip_top/10));
+    equip_tr.append($("<td>"+equip_300_value+"</td>"));
     
-    equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(equip.desc) ? translate(equip.desc) : "暂无简介")+'">查看</a></td>'));
+    var equip_refine=sgs_upgrade_exp_conf[equip.refine_upgrade_exp_type];
+    var equip_refine_html="";
+    for (var j=0; j<equip_refine.length; j++) {
+        if (j==0 && equip_refine[j].num==0) {
+            break;
+        }
+        if (equip_refine[j].num!=0) {
+            equip_refine_html+="升"+(j+1)+"星："+(equip_refine[j].num-0)+"<br>";
+        }
+        else {
+            equip_refine_html+="共计："+(equip_refine[j-1].total_num-0)+"<br>";
+        }
+    }
+    equip_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(equip_refine_html ? equip_refine_html : "无法精炼")+'">查看</a></td>'));
 
     var equip_eated_exp=Math.floor(sgs_eated_exp_conf[equip.refine_eaten_exp_type][0]["num"]);
 
