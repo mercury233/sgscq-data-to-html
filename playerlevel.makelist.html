@@ -7,23 +7,13 @@
 <meta name="description" content="" />
 <meta name="renderer" content="webkit" />
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-
-<style type="text/css">
-div.tooltip-inner { /*工具提示默认宽度过窄，不足以正常显示全部内容*/
-    max-width: 500px;
-}
-.my-mark mark { /*自定义工具提示中的mark标签*/
-    border-radius: 4px;
-    line-height: 22px;
-    background-color: #FFF;
-}
-</style>
+<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <table class="table table-striped" id="levels">
     <thead>
         <tr>
-            <th data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
+            <th role="button" data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
             <th>升级所需经验</th>
             <th>每次战斗经验</th>
             <th>所需包子数</th>
@@ -48,13 +38,7 @@ e.children("tbody").append(h);e.find("th").data("sort-dir",null).removeClass("so
 <script>
 var xs={"Cfg":{"System":{}}};
 </script>
-<script src="sgs_i18n.js"></script>
-<script src="sgs_generals.js"></script>
-<script src="sgs_skills.js"></script>
-<script src="sgs_fates.js"></script>
-<script src="sgs_surrender.js"></script>
-<script src="sgs_general_surrender.js"></script>
-<script src="sgs_user_level_conf.js"></script>
+<script src="data\sgs_user_level_conf.js"></script>
 
 
 <script>
