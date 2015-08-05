@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇武将数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,武将,排行,数据,成长,缘分,臣服,S将,A将,B将" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有武将的所有数据，包括属性、成长、技能、缘分、臣服等。未上线的武将也有显示哦！" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <textarea id="generaljson" class="form-control" rows="40"></textarea>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_skills.js"></script>
+<script src="data\sgs_fates.js"></script>
+<script src="data\sgs_surrender.js"></script>
+<script src="data\sgs_general_surrender.js"></script>
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_skills=xs.Cfg.System.sgs_skills;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_surrender=xs.Cfg.System.sgs_surrender;
+var sgs_general_surrender=xs.Cfg.System.sgs_general_surrender;
+var grade_types=["坑","神","金","银","铜","魔"];
+var skill_types=["坑","攻击","控场","卖血","被动"];
+var fate_addition_types=["坑","攻","防","血","智"];
+var lieutenant_skill_types=["无","神锋","不败","圣躯","仙策","英躯"];
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+var generals=[];
+var general_id=0;
+for (i in sgs_generals) {
+    var general=sgs_generals[i];
+    
+    if (general.grade!=1 && general.grade!=5) {
+        continue;
+    }
+    if (!general.general_fate_id[1]) {
+        continue;
+    }
+    if (general.general_hp<=250) {
+        continue;
+    }
+
+    var general_json={};
+    
+    var general_name=translate(general.name);
+    
+    general_json.id=general_id;
+    general_id++;
+    general_json.name=general_name;
+    general_json.grade=general.grade;
+    
+    if (general.general_attack_step>general.general_wisdom_step || general.general_attack>general.general_wisdom) {
+        general_json.type=1;
+        general_json.prop=general.general_attack;
+        general_json.step=general.general_attack_step;
+    }
+    else {
+        general_json.type=4;
+        general_json.prop=general.general_wisdom;
+        general_json.step=general.general_wisdom_step;
+    }
+    
+    var general_fate=[];
+    for (j in general.general_fate_id) {
+        var fate=sgs_fates[general.general_fate_id[j]];
+        if (fate.fate_addition_type != general_json.type) {
+            continue;
+        }
+        var general_fate_json={};
+        
+        var fate_desc="";
+        switch (fate.fate_type*1) {
+            case 1: //武将
+                fate_desc="同时上阵";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 2: //未知
+                fate_desc="";
+                //alert(fate);
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 3: //装备
+                fate_desc="装备";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            case 4: //技能
+                fate_desc="装备";
+                for (k in fate.fate_object) {
+                    fate_desc+=translate(fate.fate_object[k]+"01")+",";
+                }
+            break;
+            default:
+                //alert(fate);
+            break;
+        }
+        fate_effect=""+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%";
+        if (fate.fate_effect_step>0) {
+            fate_effect="其中首个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%,每多1个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect_step+"%";
+        }
+        
+        general_fate_json.name=translate(fate.name);
+        general_fate_json.desc=fate_desc+fate_effect;
+        general_fate_json.effect=fate.fate_effect;
+        
+        general_fate.push(general_fate_json);
+    }
+    general_json.fate=general_fate;
+    generals.push(general_json);
+    
+    $("#generaljson").text(JSON.stringify(generals));
+}
+</script>
+
+<script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151" language="JavaScript"></script>
+</body>
+</html>

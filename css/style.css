@@ -113,3 +113,43 @@ div#releasenotes {
     border-radius: 4px;
     background-color: #DDD;
 }
+#levels {
+    width: 400px;
+}
+/*计算器用文本框*/
+.calc-line {
+    height: 50px;
+}
+input[type="text"].short {
+    width: 100px;
+}
+label {
+    font-weight: normal;
+}
+.prop-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url("../images/props.png") no-repeat;
+    background-size: 80px 19px;
+}
+.prop-icon.p1 {
+    background-position: 0px 0px;
+}
+.prop-icon.p2 {
+    background-position: -20px 0px;
+}
+.prop-icon.p3 {
+    background-position: -40px 0px;
+}
+.prop-icon.p4 {
+    background-position: -60px 0px;
+}
+label.fate {
+    font-family: 微软雅黑;
+    font-size: 14px;
+    text-shadow: 2px 2px 2px #233333;
+    display: block;
+    width: 300px;
+    height: 100px;
+}

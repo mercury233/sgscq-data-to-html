@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="calc">
+<head>
+    <meta charset="UTF-8">
+    <title>三国杀传奇计算器</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body ng-controller="calcController as calcController">
+<nav class="navbar"></nav>
+
+<div class="container">
+    <calc-general></calc-general>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.4.3/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+$(function () {
+    $("body").tooltip({selector: "[data-toggle='tooltip']"});
+});
+
+function 复制武将(btn) {
+    var generaldiv=$compile('<div class="container"><calc-general></calc-general></div>');
+    $("body").append(generaldiv);
+    //var generaldiv=$("div.ng-scope").has($(btn));
+    //generaldiv.clone(true,true).insertAfter(generaldiv);
+}
+
+var 神突破加成=[1, 1.1, 1.2, 1.3, 1.4, 1.6];
+var 魔突破加成=[1, 1.1, 1.2, 1.3, 1.4, 1.6];
+
+var app=angular.module("calc",[]);
+
+app.controller("calcController", ["$compile", function($compile) {
+    this.addGeneral=function() {
+        //alert(1);
+        var generaldiv=$compile('<div class="container"><calc-general></calc-general></div>');
+        $("body").append(generaldiv);
+    };
+}]);
+
+app.directive("calcGeneral", function() {
+    return {
+        "restrict" : "E",
+        "templateUrl" : "calc-general.html",
+        "controller" : ["$http" ,function($http){
+            var calc=this;
+            calc.generals=[];
+
+            $http.get("data/generals.json").success(function(data) {
+                calc.generals=data;
+                calc.generalId="0";
+                calc.changeGeneral();
+            });
+            
+            calc.changeGeneral = function() {
+                var newGeneral=calc.generals[calc.generalId];
+                calc.general.name=newGeneral.name;
+                calc.general.prop=newGeneral.prop;
+                calc.general.prop_step=newGeneral.step;
+                calc.general.type=newGeneral.type;
+                calc.general.fate=0;
+                calc.general.fates=newGeneral.fate;
+            }
+            
+            calc.clickFate = function($event) {
+                $($event.target).toggleClass("active").blur();
+                var fateElems=$($event.target).parent().children(".active");
+                var fate=0;
+                fateElems.each(function(){
+                    fate+=$(this).data("effect");
+                });
+                calc.general.fate=fate;
+            }
+            
+            calc.general = {
+                "name" : "",
+                "prop" : 0,
+                "prop_step" : 0,
+                "type" : 1,
+                "level" : 200,
+                "star" : 0,
+                "medicine" : 0,
+                "fate" : 0,
+                "reincarnate" : 23.5,
+                "skill" : 23.5,
+                "equip" : 2000,
+                "fight" : 600,
+                "gem" : 1200
+            };
+            
+            calc.equip = function(base,step,level,star) {
+                return Math.floor((base+step*(level-1))*(1+star*0.1));
+            }
+            
+            calc.quick = function(type,value) {
+                calc.general[type]=value;
+            }
+            
+            calc.baseProp = function() {
+                var base=0;
+                base = parseFloat(calc.general.prop);
+                base += (parseFloat(calc.general.prop_step)*(parseInt(calc.general.level)-1));
+                base=base*神突破加成[parseInt(calc.general.star)];
+                base += parseInt(calc.general.medicine);
+                base = Math.floor(base);
+                return base;
+            }
+            
+            calc.prop = function() {
+                var prop=0;
+                var base = calc.baseProp();
+                prop += base;
+                prop += base * parseFloat(calc.general.fate)*0.01;
+                prop += base * parseFloat(calc.general.reincarnate)*0.01;
+                prop += base * parseFloat(calc.general.skill)*0.01;
+                prop += parseInt(calc.general.equip);
+                prop += parseInt(calc.general.fight);
+                prop += parseInt(calc.general.gem);
+                prop = Math.floor(prop);
+                return prop;
+            }
+        }],
+        "controllerAs" : "calc"
+    };
+});
+
+</script>
+
+</body>
+</html>
