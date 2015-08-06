@@ -118,7 +118,10 @@ div#releasenotes {
 }
 /*计算器用文本框*/
 .calc-line {
-    height: 50px;
+    line-height: 50px;
+}
+.input-group {
+    width:100%;
 }
 input[type="text"].short {
     width: 100px;

@@ -71,7 +71,7 @@ for (i in sgs_generals) {
     general_json.name=general_name;
     general_json.grade=general.grade;
     
-    if (general.general_attack_step>general.general_wisdom_step || general.general_attack>general.general_wisdom) {
+    if (general.general_attack_step>=general.general_wisdom_step && general.general_attack>general.general_wisdom || general_name=="董卓") {
         general_json.type=1;
         general_json.prop=general.general_attack;
         general_json.step=general.general_attack_step;
