@@ -2,8 +2,8 @@
 /* global angular */
 
 $(function () {
+    // 需要JQ做的初始化只有tooltip，其他初始化由angular完成
     $("body").tooltip({selector: "[data-toggle='tooltip']"});
-    
     $("#releasenotesbutton").tooltip({
         "html": "true",
         "placement": "top",
@@ -13,7 +13,9 @@ $(function () {
 
 var app=angular.module("calc",[]);
 
+// 全局controller，用于增减模块等
 app.controller("calcController", ["$compile","$scope", function($compile,$scope) {
+    // 在最后一个武将计算器后添加一个新的
     this.addGeneral=function() {
         var newScope = $scope.$new(true);
         var generaldiv=$compile('<section class="container"><hr><calc-general></calc-general></section>')(newScope);
@@ -21,6 +23,7 @@ app.controller("calcController", ["$compile","$scope", function($compile,$scope)
     };
 }]);
 
+// 武将计算器的directive
 app.directive("calcGeneral", function() {
     return {
         "restrict" : "E",
@@ -28,9 +31,12 @@ app.directive("calcGeneral", function() {
         "controller" : ["$scope", function($scope){
             var calc=this;
             
+            // 初始化
             calc.init = function() {
+                // 武将列表使用另一个JS读取的JSON，考虑到网速问题不做异步了
                 calc.generals=generals_json;
                 
+                // 初始化武将数据
                 calc.general = {
                 "name" : "",
                 "prop" : 0,
@@ -40,17 +46,25 @@ app.directive("calcGeneral", function() {
                 "star" : 0,
                 "medicine" : 0,
                 "fate" : 0,
+                "fates" : [],
                 "reincarnate" : 0.0,
                 "skill" : 0.0,
                 "equip" : 2000,
                 "fight" : 600,
-                "gem" : 1200
+                "gem" : 1000
                 };
                 
+                // 载入第一个武将
                 calc.generalId="0";
                 calc.changeGeneral();
+                
+                // 监视武将等级，自动同步修改装备等级
+                $scope.$watch("calc.general.level", function() {
+                    calc.general.equip=calc.equip();
+                });
             };
             
+            // 更换当前武将为选择的将
             calc.changeGeneral = function() {
                 var newGeneral=calc.generals[calc.generalId];
                 calc.general.name=newGeneral.name;
@@ -61,6 +75,7 @@ app.directive("calcGeneral", function() {
                 calc.general.fates=newGeneral.fate;
             };
             
+            // 点击缘分按钮时，用JQ切换类，并计算激活的按钮的缘分数据总和
             calc.clickFate = function($event) {
                 $($event.target).toggleClass("active").blur();
                 var fateElems=$($event.target).parent().children(".active");
@@ -71,8 +86,10 @@ app.directive("calcGeneral", function() {
                 calc.general.fate=fate;
             };
             
+            // 计算当前选择的装备的攻击
             calc.equip = function() {
                 var base = parseInt(calc.quickEquip);
+                // 装备等级一般是武将的1.2倍，百级以上土豪除外
                 var level = Math.floor(calc.general.level * 1.2);
                 switch (base) {
                     case 195:
@@ -93,17 +110,14 @@ app.directive("calcGeneral", function() {
                 }
             };
             
+            // 选择技能/副将/装备时调用，修改对应数据
             calc.quick = function(type,value) {
                 if (value != 0) {
                     calc.general[type]=value;
                 }
             };
             
-            $scope.$watch("calc.general.level", function() {
-                //alert(calc.quickEquip);
-                calc.general.equip=calc.equip();
-            });
-            
+            // 计算武将面板属性
             calc.baseProp = function() {
                 var 神突破加成=[1, 1.1, 1.2, 1.3, 1.45, 1.65];
                 var 魔突破加成=[1, 1.125, 1.25, 1.4, 1.6, 2.01];
@@ -121,6 +135,7 @@ app.directive("calcGeneral", function() {
                 return base;
             };
             
+            // 计算最终属性
             calc.prop = function() {
                 var prop=0;
                 var base = calc.baseProp();
