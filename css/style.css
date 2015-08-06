@@ -3,8 +3,8 @@ a[title="站长统计"] {
 	display: none;
 }
 /*首页字体*/
-.index {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, '微软雅黑', '黑体', sans-serif
+.index, .nav, h1, h2 , h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue', Helvetica, 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
 }
 /*首页页头*/
 .index header {
@@ -155,4 +155,9 @@ label.fate {
     display: block;
     width: 300px;
     height: 100px;
+}
+.calc header h1 {
+    font-size:22px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
 }
