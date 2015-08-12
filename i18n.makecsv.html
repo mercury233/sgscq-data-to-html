@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇文本数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <textarea id="i18ncsv" class="form-control" rows="40"></textarea>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+
+
+<script>
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+var i18ns="";
+for (i in sgs_i18n) {
+    var i18n=sgs_i18n[i];
+    i18n.i18n_cn=i18n.i18n_cn.replace(/\n/g,"\\n");
+    i18ns+=i18n.i18n_id+",\""+i18n.i18n_cn+"\"\r\n";
+}
+ $("#i18ncsv").text(i18ns);
+</script>
+
+<script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151" language="JavaScript"></script>
+</body>
+</html>
