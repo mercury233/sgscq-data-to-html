@@ -72,10 +72,10 @@
             <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
             <div id="releasenotes">
                 <div class="text-left wide">
-                    <p>游戏版本：7.20体验服</p>
+                    <p>游戏版本：8.12体验服</p>
                     <p>更新记录：</p>
                     <ul>
-                        <li>2015-07-25 首次发布</li>
+                        <li>2015-08-12 首次发布</li>
                     </ul>
                 </div>
             </div>
@@ -248,7 +248,7 @@ for (i in sgs_equipments) {
 <script>
 var 当前选择等级=0;
 var 当前选择类型=0;
-
+/*
 $(function () {
     $("#equips").stupidtable();
     $('[data-toggle="tooltip"]').tooltip();
@@ -268,7 +268,7 @@ $(function () {
         "title": $("#releasenotes").html()
     });
 });
-
+*/
 // 思路：首先显示所有项，分别按两种条件执行筛选，隐藏不符合条件的项。某种条件选择1234的情况直接隐藏，不选择(或称为选择全部)的情况用选择0表示，显示所有的。如果有选择0，就优先执行。
 // 算法苦手_(:з」∠)_
 function 等级筛选(grade) {
@@ -304,7 +304,6 @@ function 显示全部() {
     $("#equips tbody tr").show();
     return false;
 }
-
 </script>
 <script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151" language="JavaScript"></script>
 </body>

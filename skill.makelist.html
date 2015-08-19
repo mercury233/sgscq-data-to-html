@@ -210,7 +210,7 @@ for (i in sgs_skills) {
 
 <script>
 var 是否只显示神技能=0;
-
+/*
 $(function () {
     $("#skills").stupidtable();
     $('[data-toggle="tooltip"]').tooltip();
@@ -230,7 +230,7 @@ $(function () {
         "title": $("#releasenotes").html()
     });
 });
-
+*/
 function 只显示神技能() {
     是否只显示神技能=1;
     $("#skills tbody tr td:nth-child(2):not(:contains('神'))").parent().hide();
