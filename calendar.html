@@ -1,12 +1,89 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <title>三国杀传奇限时表</title>
-    
+<meta charset="UTF-8">
+<title>三国杀传奇武将限时表</title>
+<meta name="keywords" content="三国杀传奇,武将,限时,限时表" />
+<meta name="description" content="三国杀传奇武将限时登陆酒馆的时间表，下一个限时会是谁呢？" />
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
 <style>
-    * {
+    #animcontainer {
+        transition: all 1s ease-in-out;
+        width: 100%;
+        min-width: 380px;
+        position: relative;
+    }
+    #calendar-general {
+        /*display: none;*/
+        transition: all 1s ease-in-out;
+        width: 100%;
+        position: absolute;
+    }
+    #calendar-date {
+        transition: all 1s ease-in-out;
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+    }
+    .panel-general #calendar-general {
+        /*display: block;*/
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1000px) rotateY(0deg);
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    .panel-general #calendar-date {
+        /*display: none;*/
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1000px) rotateY(180deg);
+        transform: perspective(1000px) rotateY(180deg);
+    }
+    .panel-date #calendar-general {
+        /*display: none;*/
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1000px) rotateY(180deg);
+        transform: perspective(1000px) rotateY(180deg);
+    }
+    .panel-date #calendar-date {
+        /*display: block;*/
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1000px) rotateY(360deg);
+        transform: perspective(1000px) rotateY(360deg);
+    }
+    #calendar-general-table {
         font-family: Arial, Helvetica, sans-serif;
+        table-layout: fixed;
+    }
+    #calendar-general a {
+        display: block;
+        width: 60px;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    #calendar-general a:hover {
+        background-color: #F0F0F0;
+    }
+    #calendar-general tr {
+        border-bottom: 1px solid #EEEEEE;
+    }
+    #calendar-general th {
+        width: 80px;
+        border: none;
+    }
+    #calendar-general td {
+        font-size: 16px;
+        width: 80px;
+        border: none;
+        text-align: center;
     }
     .year {
         font-size: 30px;
@@ -17,18 +94,17 @@
         line-height: 50px;
     }
     ul.month {
-        padding: 5px;
-        width: 360px;
-    }
-    .month, .year {
-        clear: both;
+        display: block;
+        float:left;
+        padding: 0px;
+        width: 380px;
+        height:280px;
     }
     .month li, .month li::before , .month li a, .month li span {
         width: 50px;
         height: 30px;
         line-height: 30px;
         text-align: center;
-        background: #F0F0Ff;
         border-radius: 5px;
     }
     .month li {
@@ -37,19 +113,18 @@
         margin: 2px;
         font-size: 12px;
     }
-    .month li[date='0'] {
-        clear: both;
-    }
-    .month li::before {
+    .month li[date]::before {
         display: inline-block;
         content: attr(date);
         position: relative;
         color: #999999;
+        background: #F0F0FF;
     }
     .month li a , .month li span {
         display: inline-block;
         position: relative;
         top: -30px;
+        background: #F0F0FF;
     }
     .month li a {
         color: #000;
@@ -60,364 +135,274 @@
         font-size: 14px;
         font-weight: bold;
     }
+    .month li[date='month'] {
+        width:375px;
+    }
+    .month li[date='month'] span {
+        width:375px;
+        background: #F0F0F0;
+    }
+    .month li[date='0'] span {
+        font-size:12px;
+        font-weight: normal;
+        background: #F0F0F0;
+    }
 </style>
 </head>
-<body>
-<table width="98%" id="list1">
+<body class="calc">
+<header class="container">
+    <h1>三国杀传奇武将限时表
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" onclick='$("#animcontainer").toggleClass("panel-date");'>
+                <span class="glyphicon glyphicon-th-large"></span> 日历模式
+            </button>
+        </div>
+    </h1>
+</header>
+<section class="container">
+    <div id="animcontainer" class="panel-general">
+        <div id="calendar-general">
+            <table class="table" id="calendar-general-table">
+                <tbody>
+                    <tr>
+                        <th>关羽</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1022">11-5</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1114">11-21</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1363">1-5</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1453">1-16</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1594">2-9</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1677">3-1</a></td>
+                        <td><a href="http://cq.sanguosha.com/bbs/forum.php?mod=viewthread&tid=39691">3-17</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1884">4-8</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2021">4-28</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2223">5-19</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2485">6-24</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2719">8-3</a></td>
+                    </tr>
+                    <tr>
+                        <th>甄姬</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1022">11-8</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1237">12-4</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1378">1-8</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1470">1-18</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1638">2-13</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1678">3-3</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1847">4-2</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1942">4-14</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2142">5-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2388">6-10</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2600">7-14</a></td>
+                    </tr>
+                    <tr>
+                        <th>陆逊</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1063">11-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/action/activity?a=luxun">12-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1394">1-13</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1497">1-22</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-25</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1908">4-10</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1976">4-22</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2222">5-17</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2452">6-18</a></td>
+                    </tr>
+                    <tr>
+                        <th>小乔</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1084">11-14</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1356">1-2</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1518">1-26</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-21</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1728">3-15</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2008">4-26</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2225">5-27</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2511">6-30</a></td>
+                    </tr>
+                    <tr>
+                        <th>刘禅</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1155">11-25</a></td>
+                    </tr>
+                    <tr>
+                        <th>华佗</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1155">11-28</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1589">2-7</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1711">3-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2088">5-7</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2590">7-12</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2776">8-17</a></td>
+                    </tr>
+                    <tr>
+                        <th>吕布</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1218">12-2</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1506">1-24</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1679">3-5</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1864">4-4</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2038">5-2</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2396">6-12</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2609">7-18</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2782">8-19</a></td>
+                    </tr>
+                    <tr>
+                        <th>曹丕</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1294">12-19</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1389">1-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1582">2-5</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-27</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2604">7-16</a></td>
+                    </tr>
+                    <tr>
+                        <th>甘宁</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1328">12-26</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1561">2-1</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1644">2-15</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1701">3-9</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1759">3-21</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1924">4-12</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2224">5-25</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2439">6-16</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2637">7-22</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2761">8-11</td>
+            </tr>
+            <tr>
+                <th>诸葛亮</th>
+                <td><a href="http://cq.sanguosha.com/archives/1345">12-31</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-17</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1816">3-29</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2217">5-23</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2531">7-4</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2746">8-9</a></td>
+                    </tr>
+                    <tr>
+                        <th>郭嘉</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1478">1-20</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2346">6-2</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2768">8-13</a></td>
+                    </tr>
+                    <tr>
+                        <th>太史慈</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1541">1-28</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-23</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1719">3-13</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1968">4-20</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2149">5-13</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2372">6-8</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2562">7-6</a></td>
+                    </tr>
+                    <tr>
+                        <th>貂蝉</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1553">1-30</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1680">3-7</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1867">4-6</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2052">5-3</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2410">6-14</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2617">7-20</a></td>
+                    </tr>
+                    <tr>
+                        <th>张角</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1573">2-3</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1744">3-19</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2073">5-5</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2464">6-22</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2728">8-5</a></td>
+                    </tr>
+                    <tr>
+                        <th>孙尚香</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1622">2-11</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1781">3-25</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2038">5-1</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2221">5-29</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2583">7-10</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2773">8-15</a></td>
+                    </tr>
+                    <tr>
+                        <th>赵云</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1666">2-19</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1772">3-23</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2038">4-30</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2221">5-31</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2503">6-26</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2680">7-30</a></td>
+                    </tr>
+                    <tr>
+                        <th>华雄</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1808">3-27</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2353">6-4</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2572">7-8</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2822">8-24</a></td>
+                    </tr>
+                    <tr>
+                        <th>曹仁</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1833">3-31</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/1949">4-16</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2134">5-9</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2503">6-28</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2680">8-1</a></td>
+                    </tr>
+                    <tr>
+                        <th>吕蒙</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1959">4-18</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2217">5-21</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2530">7-2</a></td>
+                    </tr>
+                    <tr>
+                        <th>周瑜</th>
+                        <td><a href="http://cq.sanguosha.com/archives/1992">4-24</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2364">6-6</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2665">7-28</a></td>
+                    </tr>
+                    <tr>
+                        <th>张辽</th>
+                        <td><a href="http://cq.sanguosha.com/archives/2182">5-15</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2457">6-20</a></td>
+                        <td><a href="http://cq.sanguosha.com/archives/2653">7-26</a></td>
+                    </tr>
+                    <tr>
+                        <th>李典</th>
+                        <td><a href="http://cq.sanguosha.com/archives/2651">7-24</a></td>
+                    </tr>
+                    <tr>
+                        <th>黄月英</th>
+                        <td><a href="http://cq.sanguosha.com/archives/2746">8-7</a></td>
+                    </tr>
+                    <tr>
+                        <th>司马懿</th>
+                        <td><a href="http://cq.sanguosha.com/archives/2811">8-22</a></td>
+                    </tr>
+                    <tr>
+                        <th>贾诩</th>
+                        <td><a href="http://cq.sanguosha.com/archives/2824">8-27</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<tbody>
-    <tr>
-        <td>关羽</td>
-        <td><a href="http://cq.sanguosha.com/archives/1022">11-5</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1114">11-21</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1363">1-5</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1453">1-16</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1594">2-9</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1677">3-1</a></td>
-        <td><a href="http://cq.sanguosha.com/bbs/forum.php?mod=viewthread&tid=39691">3-17</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1884">4-8</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2021">4-28</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2223">5-19</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2485">6-24</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2719">8-3</a></td>
-    </tr>
-    <tr>
-        <td>甄姬</td>
-        <td><a href="http://cq.sanguosha.com/archives/1022">11-8</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1237">12-4</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1378">1-8</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1470">1-18</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1638">2-13</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1678">3-3</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1847">4-2</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1942">4-14</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2142">5-11</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2388">6-10</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2600">7-14</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>陆逊</td>
-        <td><a href="http://cq.sanguosha.com/archives/1063">11-11</a></td>
-        <td><a href="http://cq.sanguosha.com/action/activity?a=luxun">12-11</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1394">1-13</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1497">1-22</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-25</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1908">4-10</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1976">4-22</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2222">5-17</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2452">6-18</a></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>小乔</td>
-        <td><a href="http://cq.sanguosha.com/archives/1084">11-14</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1356">1-2</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1518">1-26</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-21</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1728">3-15</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2008">4-26</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2225">5-27</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2511">6-30</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>刘禅</td>
-        <td><a href="http://cq.sanguosha.com/archives/1155">11-25</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>华佗</td>
-        <td><a href="http://cq.sanguosha.com/archives/1155">11-28</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1589">2-7</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1711">3-11</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2088">5-7</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2590">7-12</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>吕布</td>
-        <td><a href="http://cq.sanguosha.com/archives/1218">12-2</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1506">1-24</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1679">3-5</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1864">4-4</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2038">5-2</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2396">6-12</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2609">7-18</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>曹丕</td>
-        <td><a href="http://cq.sanguosha.com/archives/1294">12-19</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1389">1-11</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1582">2-5</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-27</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2604">7-16</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>甘宁</td>
-        <td><a href="http://cq.sanguosha.com/archives/1328">12-26</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1561">2-1</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1644">2-15</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1701">3-9</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1759">3-21</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1924">4-12</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2224">5-25</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2439">6-16</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2637">7-22</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2761">8-11</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>诸葛亮</td>
-        <td><a href="http://cq.sanguosha.com/archives/1345">12-31</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-17</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1816">3-29</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2217">5-23</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2531">7-4</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2746">8-9</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>郭嘉</td>
-        <td><a href="http://cq.sanguosha.com/archives/1478">1-20</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2346">6-2</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>太史慈</td>
-        <td><a href="http://cq.sanguosha.com/archives/1541">1-28</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-23</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1719">3-13</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1968">4-20</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2149">5-13</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2372">6-8</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2562">7-6</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>貂蝉</td>
-        <td><a href="http://cq.sanguosha.com/archives/1553">1-30</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1680">3-7</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1867">4-6</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2052">5-3</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2410">6-14</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2617">7-20</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>张角</td>
-        <td><a href="http://cq.sanguosha.com/archives/1573">2-3</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1744">3-19</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2073">5-5</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2464">6-22</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2728">8-5</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>孙尚香</td>
-        <td><a href="http://cq.sanguosha.com/archives/1622">2-11</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1781">3-25</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2038">5-1</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2221">5-29</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2583">7-10</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>赵云</td>
-        <td><a href="http://cq.sanguosha.com/archives/1666">2-19</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1772">3-23</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2038">4-30</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2221">5-31</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2503">6-26</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2680">7-30</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>华雄</td>
-        <td><a href="http://cq.sanguosha.com/archives/1808">3-27</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2353">6-4</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2572">7-8</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>曹仁</td>
-        <td><a href="http://cq.sanguosha.com/archives/1833">3-31</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/1949">4-16</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2134">5-9</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2503">6-28</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2680">8-1</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>吕蒙</td>
-        <td><a href="http://cq.sanguosha.com/archives/1959">4-18</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2217">5-21</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2530">7-2</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>周瑜</td>
-        <td><a href="http://cq.sanguosha.com/archives/1992">4-24</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2364">6-6</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2665">7-28</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>张辽</td>
-        <td><a href="http://cq.sanguosha.com/archives/2182">5-15</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2457">6-20</a></td>
-        <td><a href="http://cq.sanguosha.com/archives/2653">7-26</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>李典</td>
-        <td><a href="http://cq.sanguosha.com/archives/2651">7-24</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>黄月英</td>
-        <td><a href="http://cq.sanguosha.com/archives/2746">8-7</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</tbody>
-</table>
+        <div id="calendar-date">
+        <ul class="month"><li date="month"><span>11月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li date="1"></li><li date="2"></li><li date="3"></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/1022">关羽</a></li><li date="6"></li><li date="7"></li><li date="8"><a href="http://cq.sanguosha.com/archives/1022">甄姬</a></li><li date="9"></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/1063">陆逊</a></li><li date="12"></li><li date="13"></li><li date="14"><a href="http://cq.sanguosha.com/archives/1084">小乔</a></li><li date="15"></li><li date="16"></li><li date="17"></li><li date="18"></li><li date="19"></li><li date="20"></li><li date="21"><a href="http://cq.sanguosha.com/archives/1114">关羽</a></li><li date="22"></li><li date="23"></li><li date="24"></li><li date="25"><a href="http://cq.sanguosha.com/archives/1155">刘禅</a></li><li date="26"></li><li date="27"></li><li date="28"><a href="http://cq.sanguosha.com/archives/1155">华佗</a></li><li date="29"></li><li date="30"></li></ul><ul class="month"><li date="month"><span>12月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li date="1"></li><li date="2"><a href="http://cq.sanguosha.com/archives/1218">吕布</a></li><li date="3"></li><li date="4"><a href="http://cq.sanguosha.com/archives/1237">甄姬</a></li><li date="5"></li><li date="6"></li><li date="7"></li><li date="8"></li><li date="9"></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/action/activity?a=luxun">陆逊</a></li><li date="12"></li><li date="13"></li><li date="14"></li><li date="15"></li><li date="16"></li><li date="17"></li><li date="18"></li><li date="19"><a href="http://cq.sanguosha.com/archives/1294">曹丕</a></li><li date="20"></li><li date="21"></li><li date="22"></li><li date="23"></li><li date="24"></li><li date="25"></li><li date="26"><a href="http://cq.sanguosha.com/archives/1328">甘宁</a></li><li date="27"></li><li date="28"></li><li date="29"></li><li date="30"></li><li date="31"><a href="http://cq.sanguosha.com/archives/1345">诸葛亮</a></li></ul><ul class="month"><li date="month"><span>1月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li> </li><li date="1"></li><li date="2"><a href="http://cq.sanguosha.com/archives/1356">小乔</a></li><li date="3"></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/1363">关羽</a></li><li date="6"></li><li date="7"></li><li date="8"><a href="http://cq.sanguosha.com/archives/1378">甄姬</a></li><li date="9"></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/1389">曹丕</a></li><li date="12"></li><li date="13"><a href="http://cq.sanguosha.com/archives/1394">陆逊</a></li><li date="14"></li><li date="15"></li><li date="16"><a href="http://cq.sanguosha.com/archives/1453">关羽</a></li><li date="17"></li><li date="18"><a href="http://cq.sanguosha.com/archives/1470">甄姬</a></li><li date="19"></li><li date="20"><a href="http://cq.sanguosha.com/archives/1478">郭嘉</a></li><li date="21"></li><li date="22"><a href="http://cq.sanguosha.com/archives/1497">陆逊</a></li><li date="23"></li><li date="24"><a href="http://cq.sanguosha.com/archives/1506">吕布</a></li><li date="25"></li><li date="26"><a href="http://cq.sanguosha.com/archives/1518">小乔</a></li><li date="27"></li><li date="28"><a href="http://cq.sanguosha.com/archives/1541">太史慈</a></li><li date="29"></li><li date="30"><a href="http://cq.sanguosha.com/archives/1553">貂蝉</a></li><li date="31"></li></ul><ul class="month"><li date="month"><span>2月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li date="1"><a href="http://cq.sanguosha.com/archives/1561">甘宁</a></li><li date="2"></li><li date="3"><a href="http://cq.sanguosha.com/archives/1573">张角</a></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/1582">曹丕</a></li><li date="6"></li><li date="7"><a href="http://cq.sanguosha.com/archives/1589">华佗</a></li><li date="8"></li><li date="9"><a href="http://cq.sanguosha.com/archives/1594">关羽</a></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/1622">孙尚香</a></li><li date="12"></li><li date="13"><a href="http://cq.sanguosha.com/archives/1638">甄姬</a></li><li date="14"></li><li date="15"><a href="http://cq.sanguosha.com/archives/1644">甘宁</a></li><li date="16"></li><li date="17"><a href="http://cq.sanguosha.com/archives/1666">诸葛亮</a></li><li date="18"></li><li date="19"><a href="http://cq.sanguosha.com/archives/1666">赵云</a></li><li date="20"></li><li date="21"><a href="http://cq.sanguosha.com/archives/1666">小乔</a></li><li date="22"></li><li date="23"><a href="http://cq.sanguosha.com/archives/1666">太史慈</a></li><li date="24"></li><li date="25"><a href="http://cq.sanguosha.com/archives/1666">陆逊</a></li><li date="26"></li><li date="27"><a href="http://cq.sanguosha.com/archives/1666">曹丕</a></li><li date="28"></li></ul><ul class="month"><li date="month"><span>3月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li date="1"><a href="http://cq.sanguosha.com/archives/1677">关羽</a></li><li date="2"></li><li date="3"><a href="http://cq.sanguosha.com/archives/1678">甄姬</a></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/1679">吕布</a></li><li date="6"></li><li date="7"><a href="http://cq.sanguosha.com/archives/1680">貂蝉</a></li><li date="8"></li><li date="9"><a href="http://cq.sanguosha.com/archives/1701">甘宁</a></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/1711">华佗</a></li><li date="12"></li><li date="13"><a href="http://cq.sanguosha.com/archives/1719">太史慈</a></li><li date="14"></li><li date="15"><a href="http://cq.sanguosha.com/archives/1728">小乔</a></li><li date="16"></li><li date="17"><a href="http://cq.sanguosha.com/bbs/forum.php?mod=viewthread&amp;tid=39691">关羽</a></li><li date="18"></li><li date="19"><a href="http://cq.sanguosha.com/archives/1744">张角</a></li><li date="20"></li><li date="21"><a href="http://cq.sanguosha.com/archives/1759">甘宁</a></li><li date="22"></li><li date="23"><a href="http://cq.sanguosha.com/archives/1772">赵云</a></li><li date="24"></li><li date="25"><a href="http://cq.sanguosha.com/archives/1781">孙尚香</a></li><li date="26"></li><li date="27"><a href="http://cq.sanguosha.com/archives/1808">华雄</a></li><li date="28"></li><li date="29"><a href="http://cq.sanguosha.com/archives/1816">诸葛亮</a></li><li date="30"></li><li date="31"><a href="http://cq.sanguosha.com/archives/1833">曹仁</a></li></ul><ul class="month"><li date="month"><span>4月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li date="1"></li><li date="2"><a href="http://cq.sanguosha.com/archives/1847">甄姬</a></li><li date="3"></li><li date="4"><a href="http://cq.sanguosha.com/archives/1864">吕布</a></li><li date="5"></li><li date="6"><a href="http://cq.sanguosha.com/archives/1867">貂蝉</a></li><li date="7"></li><li date="8"><a href="http://cq.sanguosha.com/archives/1884">关羽</a></li><li date="9"></li><li date="10"><a href="http://cq.sanguosha.com/archives/1908">陆逊</a></li><li date="11"></li><li date="12"><a href="http://cq.sanguosha.com/archives/1924">甘宁</a></li><li date="13"></li><li date="14"><a href="http://cq.sanguosha.com/archives/1942">甄姬</a></li><li date="15"></li><li date="16"><a href="http://cq.sanguosha.com/archives/1949">曹仁</a></li><li date="17"></li><li date="18"><a href="http://cq.sanguosha.com/archives/1959">吕蒙</a></li><li date="19"></li><li date="20"><a href="http://cq.sanguosha.com/archives/1968">太史慈</a></li><li date="21"></li><li date="22"><a href="http://cq.sanguosha.com/archives/1976">陆逊</a></li><li date="23"></li><li date="24"><a href="http://cq.sanguosha.com/archives/1992">周瑜</a></li><li date="25"></li><li date="26"><a href="http://cq.sanguosha.com/archives/2008">小乔</a></li><li date="27"></li><li date="28"><a href="http://cq.sanguosha.com/archives/2021">关羽</a></li><li date="29"></li><li date="30"><a href="http://cq.sanguosha.com/archives/2038">赵云</a></li></ul><ul class="month"><li date="month"><span>5月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li> </li><li> </li><li date="1"><a href="http://cq.sanguosha.com/archives/2038">孙尚香</a></li><li date="2"><a href="http://cq.sanguosha.com/archives/2038">吕布</a></li><li date="3"><a href="http://cq.sanguosha.com/archives/2052">貂蝉</a></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/2073">张角</a></li><li date="6"></li><li date="7"><a href="http://cq.sanguosha.com/archives/2088">华佗</a></li><li date="8"></li><li date="9"><a href="http://cq.sanguosha.com/archives/2134">曹仁</a></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/2142">甄姬</a></li><li date="12"></li><li date="13"><a href="http://cq.sanguosha.com/archives/2149">太史慈</a></li><li date="14"></li><li date="15"><a href="http://cq.sanguosha.com/archives/2182">张辽</a></li><li date="16"></li><li date="17"><a href="http://cq.sanguosha.com/archives/2222">陆逊</a></li><li date="18"></li><li date="19"><a href="http://cq.sanguosha.com/archives/2223">关羽</a></li><li date="20"></li><li date="21"><a href="http://cq.sanguosha.com/archives/2217">吕蒙</a></li><li date="22"></li><li date="23"><a href="http://cq.sanguosha.com/archives/2217">诸葛亮</a></li><li date="24"></li><li date="25"><a href="http://cq.sanguosha.com/archives/2224">甘宁</a></li><li date="26"></li><li date="27"><a href="http://cq.sanguosha.com/archives/2225">小乔</a></li><li date="28"></li><li date="29"><a href="http://cq.sanguosha.com/archives/2221">孙尚香</a></li><li date="30"></li><li date="31"><a href="http://cq.sanguosha.com/archives/2221">赵云</a></li></ul><ul class="month"><li date="month"><span>6月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li date="1"></li><li date="2"><a href="http://cq.sanguosha.com/archives/2346">郭嘉</a></li><li date="3"></li><li date="4"><a href="http://cq.sanguosha.com/archives/2353">华雄</a></li><li date="5"></li><li date="6"><a href="http://cq.sanguosha.com/archives/2364">周瑜</a></li><li date="7"></li><li date="8"><a href="http://cq.sanguosha.com/archives/2372">太史慈</a></li><li date="9"></li><li date="10"><a href="http://cq.sanguosha.com/archives/2388">甄姬</a></li><li date="11"></li><li date="12"><a href="http://cq.sanguosha.com/archives/2396">吕布</a></li><li date="13"></li><li date="14"><a href="http://cq.sanguosha.com/archives/2410">貂蝉</a></li><li date="15"></li><li date="16"><a href="http://cq.sanguosha.com/archives/2439">甘宁</a></li><li date="17"></li><li date="18"><a href="http://cq.sanguosha.com/archives/2452">陆逊</a></li><li date="19"></li><li date="20"><a href="http://cq.sanguosha.com/archives/2457">张辽</a></li><li date="21"></li><li date="22"><a href="http://cq.sanguosha.com/archives/2464">张角</a></li><li date="23"></li><li date="24"><a href="http://cq.sanguosha.com/archives/2485">关羽</a></li><li date="25"></li><li date="26"><a href="http://cq.sanguosha.com/archives/2503">赵云</a></li><li date="27"></li><li date="28"><a href="http://cq.sanguosha.com/archives/2503">曹仁</a></li><li date="29"></li><li date="30"><a href="http://cq.sanguosha.com/archives/2511">小乔</a></li></ul><ul class="month"><li date="month"><span>7月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li date="1"></li><li date="2"><a href="http://cq.sanguosha.com/archives/2530">吕蒙</a></li><li date="3"></li><li date="4"><a href="http://cq.sanguosha.com/archives/2531">诸葛亮</a></li><li date="5"></li><li date="6"><a href="http://cq.sanguosha.com/archives/2562">太史慈</a></li><li date="7"></li><li date="8"><a href="http://cq.sanguosha.com/archives/2572">华雄</a></li><li date="9"></li><li date="10"><a href="http://cq.sanguosha.com/archives/2583">孙尚香</a></li><li date="11"></li><li date="12"><a href="http://cq.sanguosha.com/archives/2590">华佗</a></li><li date="13"></li><li date="14"><a href="http://cq.sanguosha.com/archives/2600">甄姬</a></li><li date="15"></li><li date="16"><a href="http://cq.sanguosha.com/archives/2604">曹丕</a></li><li date="17"></li><li date="18"><a href="http://cq.sanguosha.com/archives/2609">吕布</a></li><li date="19"></li><li date="20"><a href="http://cq.sanguosha.com/archives/2617">貂蝉</a></li><li date="21"></li><li date="22"><a href="http://cq.sanguosha.com/archives/2637">甘宁</a></li><li date="23"></li><li date="24"><a href="http://cq.sanguosha.com/archives/2651">李典</a></li><li date="25"></li><li date="26"><a href="http://cq.sanguosha.com/archives/2653">张辽</a></li><li date="27"></li><li date="28"><a href="http://cq.sanguosha.com/archives/2665">周瑜</a></li><li date="29"></li><li date="30"><a href="http://cq.sanguosha.com/archives/2680">赵云</a></li><li date="31"></li></ul><ul class="month"><li date="month"><span>8月</span></li><li date="0"><span>日</span></li><li date="0"><span>一</span></li><li date="0"><span>二</span></li><li date="0"><span>三</span></li><li date="0"><span>四</span></li><li date="0"><span>五</span></li><li date="0"><span>六</span></li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li date="1"><a href="http://cq.sanguosha.com/archives/2680">曹仁</a></li><li date="2"></li><li date="3"><a href="http://cq.sanguosha.com/archives/2719">关羽</a></li><li date="4"></li><li date="5"><a href="http://cq.sanguosha.com/archives/2728">张角</a></li><li date="6"></li><li date="7"><a href="http://cq.sanguosha.com/archives/2746">黄月英</a></li><li date="8"></li><li date="9"><a href="http://cq.sanguosha.com/archives/2746">诸葛亮</a></li><li date="10"></li><li date="11"><a href="http://cq.sanguosha.com/archives/2761">甘宁</a></li><li date="12"></li><li date="13"><a href="http://cq.sanguosha.com/archives/2768">郭嘉</a></li><li date="14"></li><li date="15"><a href="http://cq.sanguosha.com/archives/2773">孙尚香</a></li><li date="16"></li><li date="17"><a href="http://cq.sanguosha.com/archives/2776">华佗</a></li><li date="18"></li><li date="19"><a href="http://cq.sanguosha.com/archives/2782">吕布</a></li><li date="20"></li><li date="21"></li><li date="22"><a href="http://cq.sanguosha.com/archives/2811">司马懿</a></li><li date="23"></li><li date="24"><a href="http://cq.sanguosha.com/archives/2822">华雄</a></li><li date="25"></li><li date="26"></li><li date="27"><a href="http://cq.sanguosha.com/archives/2824">贾诩</a></li><li date="28"></li><li date="29"></li><li date="30"></li><li date="31"></li></ul></div>
 
-<div id="list2"></div>
-
+    </div>
+</section>
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 
-<script>
+<!--script>
 function searchgeneral(year,month,date) {
-    var datetext=year+"-"+month+"-"+date;
+    //var datetext=year+"-"+month+"-"+date;
+    var datetext=month+"-"+date;
     //if (date==1 || date==2) console.log(datetext);
-    var findcell=$("#list1").find("td:contains("+datetext+")");
+    var findcell=$("#calendar-general").find("td:contains("+datetext+")");
     if (findcell) {
         for (i in findcell) {
             if ($(findcell[i]).text()==datetext) {
                 var generalname=$($(findcell[i]).siblings()[0]).text();
                 var newslink=$($(findcell[i]).children()[0]).attr("href");
-                return "<a href='"+newslink+"' target='_blank'>"+generalname+"</a>";
+                return "<a href='"+newslink+"'>"+generalname+"</a>";
             }
         }
     }
     return 0;
 }
-/*
+
 var now=new Date();
 var pointer=new Date();
-var month_ul=$("<ul class='month'></ul>");
-pointer.setFullYear(2014,10,2);
+//var month_ul=$("<ul class='month'></ul>");
+pointer.setFullYear(2014,10,1);
 for (var year=pointer.getFullYear(); year<=now.getFullYear(); ) {
     //$("#list2").append($("<div class='year'>"+year+"</div>"));
     
@@ -427,13 +412,21 @@ for (var year=pointer.getFullYear(); year<=now.getFullYear(); ) {
             break;
         }
         //$("#list2").append($("<div class='month'>"+(month+1)+"</div>"));
-        //var month_ul=$("<ul class='month'></ul>");
-        //var date_li=$("<li date='0'><span>"+ (month+1) +"</span></li>");
-        //month_ul.append(date_li);
+        var month_ul=$("<ul class='month'></ul>");
+        var date_li=$("<li date='month'><span>"+ (month+1) +"月</span></li>");
+        month_ul.append(date_li);
+        var date_li=$("<li date='0'><span>日</span></li><li date='0'><span>一</span></li><li date='0'><span>二</span></li><li date='0'><span>三</span></li><li date='0'><span>四</span></li><li date='0'><span>五</span></li><li date='0'><span>六</span></li>");
+        month_ul.append(date_li);
+        var day=0;
+        while (day!=pointer.getDay()) {
+            //console.log(pointer.getDay());
+            var date_li=$("<li> </li>");
+            month_ul.append(date_li);
+            day++;
+        }
             for (var date=pointer.getDate();date<=31; ) {
-                
                 var general=searchgeneral(pointer.getFullYear(),pointer.getMonth()+1,pointer.getDate());
-                
+                //var datetext=(month+1)+"-"+date;
                 var date_li=$("<li date='"+date+"'>"+ (general ? general : "")+"</li>");
                 month_ul.append(date_li);
                 date++;
@@ -444,7 +437,7 @@ for (var year=pointer.getFullYear(); year<=now.getFullYear(); ) {
                     break;
                 }
             }
-        //$("#list2").append(month_ul);
+        $("#calendar-date").append(month_ul);
         pointer.setMonth(month);
         if (month!=pointer.getMonth()) {
             pointer.setMonth(0);
@@ -454,9 +447,9 @@ for (var year=pointer.getFullYear(); year<=now.getFullYear(); ) {
         }
     }
 }
-$("#list2").append(month_ul);
-*/
-</script>
+//$("#list2").append(month_ul);
+
+</script-->
 
 </body>
 </html>

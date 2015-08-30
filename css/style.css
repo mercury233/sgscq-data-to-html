@@ -71,6 +71,7 @@ div#releasenotes {
 .index div.bigicon {
     text-align: center;
     padding:10px;
+    min-height: 320px;
 }
 /*首页大中图片自动适应宽度*/
 .index div.bigicon img {
@@ -165,4 +166,14 @@ div#releasenotes {
     font-size:22px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
+}
+/*标签标题*/
+.nav.nav-tabs  {
+    font-weight: bold;
+}
+#player-levels {
+    width: 500px;
+}
+#skill-levels {
+    width: 700px;
 }

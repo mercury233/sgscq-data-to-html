@@ -44,7 +44,7 @@ var fate_addition_types=["坑","攻","防","血","智"];
 var lieutenant_skill_types=["无","神锋","不败","圣躯","仙策","英躯"];
 
 function translate(id) {
-    return sgs_i18n[id].i18n_cn;
+    return sgs_i18n[id] ? sgs_i18n[id].i18n_cn : "暂无文本";
 }
 
 var generals=[];

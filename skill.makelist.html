@@ -48,6 +48,7 @@
                         </div>
                     </th>
                     <th>效果</th>
+                    <th role="button" data-sort="float" data-sort-default="desc" class="middletitle">满级主属性 <span class="caret"></th>
                     <th class="middletitle">触发</th>
                     <th class="middletitle">目标</th>
                     <th class="shorttitle">简介</th>
@@ -123,12 +124,22 @@ for (i in sgs_skills) {
     eval("var skill_param_step=["+skill.desc_param_step+"]");
     var skill_desc=translate(skill.desc);
     for (j=0; j<10; j++) {
-        skill_desc=skill_desc.replace("$"+(j+1),
-            skill_param_step[j] ? 
-            ("<mark data-toggle='tooltip' data-placement='bottom' title='成长:"+skill_param_step[j]+"'>"+skill_param_value[j]+"</mark>"+"(满级:"+Math.round((skill_param_value[j]+skill_param_step[j]*29)*100)/100+")") :
-            skill_param_value[j]);
+        if (skill_desc.includes("$"+(j+1))) {
+            skill_desc=skill_desc.replace("$"+(j+1),
+                skill_param_step[j] ? 
+                ("<mark data-toggle='tooltip' data-placement='bottom' title='成长:"+skill_param_step[j]+"'>"+skill_param_value[j]+"</mark>"+"(满级:"+Math.round((skill_param_value[j]+skill_param_step[j]*29)*100)/100+")") :
+                skill_param_value[j]);
+        }
+        else if (skill_param_value[j]) {
+            skill_desc=skill_desc+"(隐藏系数:"+ (skill_param_step[j] ? 
+                ("<mark data-toggle='tooltip' data-placement='bottom' title='成长:"+skill_param_step[j]+"'>"+skill_param_value[j]+"</mark>"+"(满级:"+Math.round((skill_param_value[j]+skill_param_step[j]*29)*100)/100+")") :
+                skill_param_value[j]) +")";
+        }
     }
     skill_tr.append($("<td>"+skill_desc+"</td>"));
+    
+    var skill_prop=(skill_param_step[0] ? (Math.round((skill_param_value[0]+skill_param_step[0]*29)*100)/100) : (skill_param_value[0] ? skill_param_value[0] : ""));
+    skill_tr.append($("<td data-sort-value='"+ skill_prop*1 +"'>"+skill_prop+"</td>"));
 
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.phase_desc).replace(" ","<br>")+"</div></td>"));
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.range_desc)+"</div></td>"));
@@ -146,7 +157,6 @@ for (i in sgs_skills) {
                     }
                 }
             }
-            var fate_desc="";
             fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
             skill_fate_html+="<mark>"+skill_fate_general_name+"</mark>：<mark>"+translate(fate.name)+"</mark>："+fate_effect+"<br>";
         }

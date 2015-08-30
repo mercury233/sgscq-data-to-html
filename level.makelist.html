@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇升级经验表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,升级,经验,武将等级,经验宝宝" />
+<meta name="description" content="本页面展示了目前三国杀传奇大部分升级所需的经验。" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"><a href="#tab-player" aria-controls="tab-player" role="tab" data-toggle="tab">主公升级</a></li>
+        <li role="presentation"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">武将升级</a></li>
+        <li role="presentation"><a href="#tab-skill" aria-controls="tab-skill" role="tab" data-toggle="tab">技能升级</a></li>
+        <li role="presentation" class="active"><a href="#tab-equip" aria-controls="tab-equip" role="tab" data-toggle="tab">装备强化</a></li>
+    </ul>
+</header>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane" id="tab-player">
+        <table class="table table-striped" id="player-levels">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
+                    <th>升级所需经验</th>
+                    <th>每次战斗经验</th>
+                    <th>所需包子数</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-general">
+        <table class="table table-striped" id="general-levels">
+            <thead>
+                <tr>
+                    <th rowspan="2" role="button" data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
+                    <th colspan="2">上神(A将)</th>
+                    <th colspan="2">中神(B将)</th>
+                    <th colspan="2">下神(B将)</th>
+                    <th colspan="2">劣神(C将)</th>
+                </tr>
+                <tr>
+                    <th>升级所需经验</th>
+                    <th>总经验</th>
+                    <th>升级所需经验</th>
+                    <th>总经验</th>
+                    <th>升级所需经验</th>
+                    <th>总经验</th>
+                    <th>升级所需经验</th>
+                    <th>总经验</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-skill">
+        <table class="table table-striped" id="skill-levels">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
+                    <th>升级所需经验</th>
+                    <th><span data-toggle="tooltip" data-placement="bottom" data-container="body" title="一本经验神书的经验是16，金书是7，银书是2">升级所需经验神书数 <span class="glyphicon glyphicon-question-sign"></span></span></th>
+                    <th>总经验</th>
+                    <th>总共经验神书数</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane active" id="tab-equip">
+        <table class="table table-striped" id="equip-levels">
+            <thead>
+                <tr>
+                    <th role="button" data-sort="int" data-sort-default="desc">等级 <span class="caret"></th>
+                    <th>神武器</th>
+                    <th>神防具</th>
+                    <th>神坐骑</th>
+                    <th>神锦囊</th>
+                    <th>金武器</th>
+                    <th>金防具</th>
+                    <th>金坐骑</th>
+                    <th>金锦囊</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" data-container="body" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>版本：8.28体验服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2015-08-30 首次发布</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/stupidtable.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+<script src="data\sgs_user_level_conf.js"></script>
+<script src="data\sgs_upgrade_exp_conf.js"></script>
+<script src="data\sgs_upgrade_coin_conf.js"></script>
+
+
+<script>
+var sgs_user_level_conf=xs.Cfg.System.sgs_user_level_conf;
+var sgs_upgrade_exp_conf=xs.Cfg.System.sgs_upgrade_exp_conf;
+var sgs_upgrade_coin_conf=xs.Cfg.System.sgs_upgrade_coin_conf;
+
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+    
+    $("#player-levels").stupidtable();
+    $("#general-levels").stupidtable();
+    $("#skill-levels").stupidtable();
+    $("#equip-levels").stupidtable();
+});
+
+function translate(id) {
+    return sgs_i18n[id].i18n_cn;
+}
+
+
+for (i = 0 ; i<sgs_user_level_conf.length; i++) {
+    var level_tr=$("<tr>");
+    level_tr.append($("<td>"+(i+1)+"</td>"));
+    level_tr.append($("<td>"+sgs_user_level_conf[i].exp_need+"</td>"));
+    level_tr.append($("<td>"+sgs_user_level_conf[i].ladder_fight_user_exp+"</td>"));
+    level_tr.append($("<td>"+sgs_user_level_conf[i].exp_need/sgs_user_level_conf[i].ladder_fight_user_exp/10+"</td>"));
+    $("#player-levels").append(level_tr);
+}
+
+for (i = 0 ; i<sgs_upgrade_exp_conf.shangshen_exp.length; i++) {
+    var level_tr=$("<tr>");
+    level_tr.append($("<td>"+(i+1)+"</td>"));
+    level_tr.append($("<td>"+Math.round(sgs_upgrade_exp_conf.shangshen_exp[i].num)+"</td>"));
+    level_tr.append($("<td>"+(i ? Math.round(sgs_upgrade_exp_conf.shangshen_exp[i-1].total_num) : 0)+"</td>"));
+    level_tr.append($("<td>"+Math.round(sgs_upgrade_exp_conf.zhongshen_exp[i].num)+"</td>"));
+    level_tr.append($("<td>"+(i ? Math.round(sgs_upgrade_exp_conf.zhongshen_exp[i-1].total_num) : 0)+"</td>"));
+    level_tr.append($("<td>"+Math.round(sgs_upgrade_exp_conf.xiashen_exp[i].num)+"</td>"));
+    level_tr.append($("<td>"+(i ? Math.round(sgs_upgrade_exp_conf.xiashen_exp[i-1].total_num) : 0)+"</td>"));
+    level_tr.append($("<td>"+Math.round(sgs_upgrade_exp_conf.lieshen_exp[i].num)+"</td>"));
+    level_tr.append($("<td>"+(i ? Math.round(sgs_upgrade_exp_conf.lieshen_exp[i-1].total_num) : 0)+"</td>"));
+    $("#general-levels").append(level_tr);
+}
+
+for (i = 0 ; i<sgs_upgrade_exp_conf.shen_jinengshengji.length; i++) {
+    var level_tr=$("<tr>");
+    level_tr.append($("<td>"+(i+1)+"</td>"));
+    level_tr.append($("<td>"+sgs_upgrade_exp_conf.shen_jinengshengji[i].num+"</td>"));
+    level_tr.append($("<td>"+Math.ceil(sgs_upgrade_exp_conf.shen_jinengshengji[i].num/16)+"</td>"));
+    level_tr.append($("<td>"+(i ? sgs_upgrade_exp_conf.shen_jinengshengji[i-1].total_num : 0)+"</td>"));
+    level_tr.append($("<td>"+(i ? Math.ceil(sgs_upgrade_exp_conf.shen_jinengshengji[i-1].total_num/16) : 0)+"</td>"));
+
+    $("#skill-levels").append(level_tr);
+}
+
+for (i = 0 ; i<360; i++) {
+    var level_tr=$("<tr>");
+    level_tr.append($("<td>"+(i+1)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenwuqi_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenfangju_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenzuoqi_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenjinnang_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.jinwuqi_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.jinfangju_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.jinzuoqi_qianghua[i].num)+"</td>"));
+    level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.jinjinnang_qianghua[i].num)+"</td>"));
+
+
+    $("#equip-levels").append(level_tr);
+}
+</script>
+</body>
+</html>
