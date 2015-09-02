@@ -56,8 +56,7 @@
                     <th class="shorttitle">来源</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
 </div>
@@ -143,8 +142,13 @@ for (i in sgs_skills) {
 
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.phase_desc).replace(" ","<br>")+"</div></td>"));
     skill_tr.append($("<td><div class='shorttext small'>"+translate(skill.range_desc)+"</div></td>"));
-    skill_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+(translate(skill.short_desc) ? translate(skill.short_desc) : "暂无简介")+'">查看</a></td>'));
-    
+    if (translate(skill.short_desc)) {
+        skill_tr.append($('<td><a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+translate(skill.short_desc)+'">查看</a></td>'));
+    }
+    else {
+        skill_tr.append($('<td class="small">无</td>')); 
+    }
+
     var skill_fate_html="";
     for (j in sgs_fates) {
         if (sgs_fates[j].fate_object[0]==skill.id) {

@@ -10,6 +10,134 @@
 <base target="_blank" />
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+<style>
+@media (min-width: 1200px) {
+    #calendar-animcontainer {
+        position: relative;
+    }
+    #calendar-general {
+        transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        position: absolute;
+        top: 0;
+    }
+    #calendar-date {
+        transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        position: relative;
+        overflow: hidden;
+    }
+    #calendar-general {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1200px) rotateY(0deg);
+        transform: perspective(1200px) rotateY(0deg);
+    }
+    #calendar-date {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1200px) rotateY(180deg);
+        transform: perspective(1200px) rotateY(180deg);
+    }
+    .back #calendar-general {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1200px) rotateY(180deg);
+        transform: perspective(1200px) rotateY(180deg);
+    }
+    .back #calendar-date {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: perspective(1200px) rotateY(360deg);
+        transform: perspective(1200px) rotateY(360deg);
+    }
+}
+@media (max-width: 1199px) {
+    #calendar-general {
+        display: none;
+    }
+    #calendar-date {
+        display: block;
+    }
+    .back #calendar-general {
+        display: block;
+    }
+    .back #calendar-date {
+        display: none;
+    }
+}
+#calendar-general-table {
+    font-family: Arial, Helvetica, sans-serif;
+    table-layout: fixed;
+}
+#calendar-general a {
+    display: block;
+    width: 60px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+#calendar-general a:hover {
+    background-color: #F0F0F0;
+}
+#calendar-general tr {
+    border-bottom: 1px solid #EEEEEE;
+}
+#calendar-general th {
+    width: 80px;
+    border: none;
+}
+#calendar-general td {
+    font-size: 16px;
+    width: 80px;
+    border: none;
+    text-align: center;
+}
+.year {
+    font-size: 30px;
+    line-height: 80px;
+}
+div.month {
+    font-size: 20px;
+    line-height: 50px;
+}
+ul.month {
+    display: block;
+    float:left;
+    padding: 0px;
+    height:280px;
+}
+.month li {
+    width: 13%;
+    height: 30px;
+    display: block;
+    float: left;
+    margin: 2px 0.6%;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    color: #999999;
+    background: #F0F0FF;
+}
+.month li a {
+    color: #000;
+    text-decoration: none;
+}
+.month li.space {
+    background: #FFFFFF;
+}
+.month li.week {
+    background: #F0F0F0;
+    color: #000;
+}
+.month li.month {
+    width:98.3%;
+    background: #F0F0F0;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+}
+</style>
 </head>
 <body class="calc">
 <header class="container">
@@ -248,7 +376,7 @@
 <footer>
     <div class="container-fluid">
         <div class="row">
-            <a class="btn btn-default" href="./" target="_self" role="button">返回首页</a>
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
             <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" data-container="body" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
             <button class="btn btn-default" id="releasenotesbutton">查看版本更新说明</button>
             <div id="releasenotes">
@@ -266,7 +394,7 @@
 
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151"></script>
+
 <script>
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -277,5 +405,74 @@ $(function () {
     });
 });
 </script>
+<!--script>
+function searchgeneral(year,month,date) {
+    //var datetext=year+"-"+month+"-"+date;
+    var datetext=month+"-"+date;
+    //if (date==1 || date==2) console.log(datetext);
+    var findcell=$("#calendar-general").find("td:contains("+datetext+")");
+    if (findcell) {
+        for (i in findcell) {
+            if ($(findcell[i]).text()==datetext) {
+                var generalname=$($(findcell[i]).siblings()[0]).text();
+                var newslink=$($(findcell[i]).children()[0]).attr("href");
+                return "<a href='"+newslink+"'>"+generalname+"</a>";
+            }
+        }
+    }
+    return 0;
+}
+
+var now=new Date();
+var pointer=new Date();
+//var month_ul=$("<ul class='month'></ul>");
+pointer.setFullYear(2014,10,1);
+for (var year=pointer.getFullYear(); year<=now.getFullYear(); ) {
+    //$("#list2").append($("<div class='year'>"+year+"</div>"));
+    
+    for (var month=pointer.getMonth(); month<=11; ) {
+        if (year==now.getFullYear() && month>now.getMonth()) {
+            year++;
+            break;
+        }
+        //$("#list2").append($("<div class='month'>"+(month+1)+"</div>"));
+        var month_ul=$("<ul class='month col-xs-12 col-sm-6 col-md-6 col-lg-4'></ul>");
+        var date_li=$("<li class='month'>"+ (month+1) +"月</li>");
+        month_ul.append(date_li);
+        var date_li=$("<li class='week'>日</li><li class='week'>一</li><li class='week'>二</li><li class='week'>三</li><li class='week'>四</li><li class='week'>五</li><li class='week'>六</li>");
+        month_ul.append(date_li);
+        var day=0;
+        while (day!=pointer.getDay()) {
+            //console.log(pointer.getDay());
+            var date_li=$("<li class='space'> </li>");
+            month_ul.append(date_li);
+            day++;
+        }
+            for (var date=pointer.getDate();date<=31; ) {
+                var general=searchgeneral(pointer.getFullYear(),pointer.getMonth()+1,pointer.getDate());
+                var date_li=$("<li>"+ (general ? general : date)+"</li>");
+                month_ul.append(date_li);
+                date++;
+                pointer.setDate(date);
+                if (date!=pointer.getDate()) {
+                    pointer.setDate(1);
+                    month++;
+                    break;
+                }
+            }
+        $("#calendar-date").append(month_ul);
+        pointer.setMonth(month);
+        if (month!=pointer.getMonth()) {
+            pointer.setMonth(0);
+            year++;
+            pointer.setFullYear(year);
+            break;
+        }
+    }
+}
+//$("#list2").append(month_ul);
+
+</script-->
+
 </body>
 </html>
