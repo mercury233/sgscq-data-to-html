@@ -61,6 +61,9 @@ for (i in sgs_generals) {
     if (general.general_hp<=250) {
         continue;
     }
+    if (general.id==191006) {
+        continue;
+    }
 
     var general_json={};
     
@@ -122,12 +125,30 @@ for (i in sgs_generals) {
             break;
         }
         fate_effect=""+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%";
+        general_fate_json.desc=fate_desc+fate_effect;
         if (fate.fate_effect_step>0) {
-            fate_effect="其中首个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%,每多1个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect_step+"%";
+            //fate_effect="其中首个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%,每多1个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect_step+"%";
+            fate.fate_effect=0;
+            switch (general.general_fate_id[j]*1) {
+                case 42100106:
+                case 44100106:
+                    general_fate_json.desc="每上阵一名神国武将，攻+15%（请手动修改数值）";
+                break;
+                case 42100206:
+                case 43100106:
+                    general_fate_json.desc="每上阵一名神国武将，智+15%（请手动修改数值）";
+                break;
+                case 45100106:
+                    general_fate_json.desc="每上阵一名神国武将（神·指纹自身除外），攻+15%（请手动修改数值）";
+                break;
+                case 42101403:
+                    general_fate_json.desc="装备4件神装备,智+35%";
+                    fate.fate_effect=35;
+                break;
+            }
         }
         
         general_fate_json.name=translate(fate.name);
-        general_fate_json.desc=fate_desc+fate_effect;
         general_fate_json.effect=fate.fate_effect;
         
         general_fate.push(general_fate_json);
@@ -135,7 +156,7 @@ for (i in sgs_generals) {
     general_json.fate=general_fate;
     generals.push(general_json);
     
-    $("#generaljson").text(JSON.stringify(generals));
+    $("#generaljson").text("var generals_json="+JSON.stringify(generals)+";");
 }
 </script>
 

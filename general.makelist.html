@@ -46,8 +46,7 @@
                     <th>简介</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
 </div>
@@ -256,7 +255,7 @@ for (i in sgs_generals) {
 </script>
 
 <script>
-$(function () {
+/*$(function () {
     $("#generals").stupidtable();
     $('[data-toggle="tooltip"]').tooltip();
     
@@ -279,7 +278,7 @@ $(function () {
     //只显示神将魔将();
     //$("#generals tbody tr td:nth-child(14) small , #generals tbody tr td:nth-child(15) small).parent().parent().addClass("gray");
 });
-
+*/
 function 只显示神将魔将() {
     $("#generals tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('魔'))").parent().hide();
     return false;
