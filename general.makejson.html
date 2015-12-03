@@ -30,6 +30,7 @@ var xs={"Cfg":{"System":{}}};
 <script src="data\sgs_fates.js"></script>
 <script src="data\sgs_surrender.js"></script>
 <script src="data\sgs_general_surrender.js"></script>
+<script src="data\sgs_upgrade_exp_conf.js"></script>
 
 <script>
 var sgs_generals=xs.Cfg.System.sgs_generals;
@@ -38,6 +39,7 @@ var sgs_skills=xs.Cfg.System.sgs_skills;
 var sgs_fates=xs.Cfg.System.sgs_fates;
 var sgs_surrender=xs.Cfg.System.sgs_surrender;
 var sgs_general_surrender=xs.Cfg.System.sgs_general_surrender;
+var sgs_upgrade_exp_conf=xs.Cfg.System.sgs_upgrade_exp_conf;
 var grade_types=["坑","神","金","银","铜","魔"];
 var skill_types=["坑","攻击","控场","卖血","被动"];
 var fate_addition_types=["坑","攻","防","血","智"];
@@ -73,6 +75,7 @@ for (i in sgs_generals) {
     general_id++;
     general_json.name=general_name;
     general_json.grade=general.grade;
+    general_json.upgrade=general.upgrade_exp_type;
     
     if (general.general_attack_step>=general.general_wisdom_step && general.general_attack>general.general_wisdom || general_name=="董卓") {
         general_json.type=1;
@@ -139,7 +142,8 @@ for (i in sgs_generals) {
                     general_fate_json.desc="每上阵一名神国武将，智+15%（请手动修改数值）";
                 break;
                 case 45100106:
-                    general_fate_json.desc="每上阵一名神国武将（神·指纹自身除外），攻+15%（请手动修改数值）";
+                case 47101206:
+                    general_fate_json.desc="每上阵一名神国武将（定制武将除外），攻+15%（请手动修改数值）";
                 break;
                 case 42101403:
                     general_fate_json.desc="装备4件神装备,智+35%";
@@ -156,7 +160,24 @@ for (i in sgs_generals) {
     general_json.fate=general_fate;
     generals.push(general_json);
     
-    $("#generaljson").text("var generals_json="+JSON.stringify(generals)+";");
+    var shangshen_exp=[];
+    var zhongshen_exp=[];
+    var xiashen_exp=[];
+    var lieshen_exp=[];
+    
+    for (i = 0 ; i<sgs_upgrade_exp_conf.shangshen_exp.length; i++) {
+        shangshen_exp[i]=Math.round(sgs_upgrade_exp_conf.shangshen_exp[i].total_num);
+        zhongshen_exp[i]=Math.round(sgs_upgrade_exp_conf.zhongshen_exp[i].total_num);
+        xiashen_exp[i]=Math.round(sgs_upgrade_exp_conf.xiashen_exp[i].total_num);
+        lieshen_exp[i]=Math.round(sgs_upgrade_exp_conf.lieshen_exp[i].total_num);
+    }
+    var exps={
+        "shangshen_exp": shangshen_exp,
+        "zhongshen_exp" :zhongshen_exp,
+        "xiashen_exp" :xiashen_exp,
+        "lieshen_exp" :lieshen_exp
+    };
+    $("#generaljson").text("var generals_json="+JSON.stringify(generals)+";\r\nvar generals_exps="+JSON.stringify(exps)+";");
 }
 </script>
 
