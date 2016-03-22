@@ -131,19 +131,22 @@ for (i in sgs_generals) {
         general_fate_json.desc=fate_desc+fate_effect;
         if (fate.fate_effect_step>0) {
             //fate_effect="其中首个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect+"%,每多1个"+fate_addition_types[fate.fate_addition_type]+"+"+fate.fate_effect_step+"%";
-            fate.fate_effect=0;
+            fate.fate_effect=15;
             switch (general.general_fate_id[j]*1) {
                 case 42100106:
                 case 44100106:
-                    general_fate_json.desc="每上阵一名神国武将，攻+15%（请手动修改数值）";
+                    general_fate_json.desc="每上阵一名神国武将，攻+15%（点亮一个即表示上阵一个）";
+                    fate.multi=true;
                 break;
                 case 42100206:
                 case 43100106:
-                    general_fate_json.desc="每上阵一名神国武将，智+15%（请手动修改数值）";
+                    general_fate_json.desc="每上阵一名神国武将，智+15%（点亮一个即表示上阵一个）";
+                    fate.multi=true;
                 break;
                 case 45100106:
                 case 47101206:
-                    general_fate_json.desc="每上阵一名神国武将（定制武将除外），攻+15%（请手动修改数值）";
+                    general_fate_json.desc="每上阵一名神国武将（定制武将除外），攻+15%（点亮一个即表示上阵一个）";
+                    fate.multi=true;
                 break;
                 case 42101403:
                     general_fate_json.desc="装备4件神装备,智+35%";
@@ -156,6 +159,13 @@ for (i in sgs_generals) {
         general_fate_json.effect=fate.fate_effect;
         
         general_fate.push(general_fate_json);
+        if (fate.multi) {
+            general_fate.push(general_fate_json);
+            general_fate.push(general_fate_json);
+            general_fate.push(general_fate_json);
+            general_fate.push(general_fate_json);
+            general_fate.push(general_fate_json);
+        }
     }
     general_json.fate=general_fate;
     generals.push(general_json);

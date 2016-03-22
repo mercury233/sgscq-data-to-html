@@ -105,7 +105,7 @@ var skill_types=["坑","攻击","控场","卖血","被动"];
 var fate_addition_types=["坑","攻","防","血","智"];
 
 function translate(id) {
-    return sgs_i18n[id].i18n_cn;
+    return sgs_i18n[id] ? sgs_i18n[id].i18n_cn : "暂无文本";
 }
 
 for (i in sgs_skills) {
