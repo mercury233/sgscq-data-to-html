@@ -31,14 +31,14 @@ var xs={"Cfg":{"System":{}}};
 var sgs_i18n=xs.Cfg.System.sgs_i18n;
 
 function translate(id) {
-    return sgs_i18n[id].i18n_cn;
+    return sgs_i18n[id].i18n_sb;
 }
 
 var i18ns="";
 for (i in sgs_i18n) {
     var i18n=sgs_i18n[i];
-    i18n.i18n_cn=i18n.i18n_cn.replace(/\n/g,"\\n");
-    i18ns+=i18n.i18n_id+",\""+i18n.i18n_cn+"\"\r\n";
+    i18n.i18n_sb=i18n.i18n_sb.replace(/\n/g,"\\n");
+    i18ns+=i18n.i18n_id+",\""+i18n.i18n_sb+"\"\r\n";
 }
  $("#i18ncsv").text(i18ns);
 </script>
