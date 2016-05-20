@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇神兵数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,神兵,消耗,材料,技能,数据" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有神兵的所有数据，包括消耗材料、属性、技能、缘分等。" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped" id="buffs">
+            <thead>
+                <tr>
+                    <th class="shorttitle">ID</th>
+                    <th class="shorttitle text-center" colspan="2">神兵</th>
+                    <th class="middletitle">1-9锻消耗</th>
+                    <th class="middletitle">1-9锻效果</th>
+                    <th class="middletitle">10锻消耗</th>
+                    <th class="middletitle">10锻效果</th>
+                    <th class="middletitle">V10消耗</th>
+                    <th class="middletitle">V10效果</th>
+                </tr>
+            </thead>
+<tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" data-container="body" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <button class="btn btn-default" id="releasenotesbutton" data-container="body">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>版本：5.4正式服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2016-05-20 内测</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_skills.js"></script>
+<script src="data\sgs_fates.js"></script>
+<script src="data\sgs_magic_buff_conf.js"></script>
+<script src="data\sgs_skill_advanced_conf.js"></script>
+
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_skills=xs.Cfg.System.sgs_skills;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_magic_buff_conf=xs.Cfg.System.sgs_magic_buff_conf;
+var sgs_skill_advanced_conf=xs.Cfg.System.sgs_skill_advanced_conf;
+
+var grade_types=["坑","神","金","银","铜","魔"];
+var skill_types=["坑","攻击","控场","卖血","被动"];
+var fate_addition_types=["坑","攻","防","血","智"];
+var buff_types=["坑","攻","防","血","智","技能等级","技能进阶","缘分改变","天赋点"];
+
+function translate(id) {
+    return sgs_i18n[id] ? sgs_i18n[id].i18n_sb : "暂无文本";
+}
+function translate2(name) {
+    name=name.replace("神兵","");
+    for (p in sgs_i18n) {
+        if (sgs_i18n[p].i18n_sb==name) {
+            return p.slice(0,-2);
+        }
+    }
+    return 100000;
+}
+
+function get_fate_text(fate) {
+    var fate_desc="";
+    switch (fate.fate_type*1) {
+        case 1: //武将
+            fate_desc="同时上阵";
+            for (k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 2: //未知
+            fate_desc="";
+            //alert(fate);
+            for (k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 3: //装备
+            fate_desc="装备";
+            for (k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 4: //技能
+            fate_desc="装备";
+            for (k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        default:
+            //alert(fate);
+        break;
+    }
+    fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
+    if (fate.fate_effect_step>0) {
+        fate_effect="其中首个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%,每多1个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect_step+"%";
+    }
+    return'<a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+fate_desc+fate_effect+'">'+translate(fate.name)+'</a>';
+}
+
+function add_piece(buff_pieces, piece) {
+    if (buff_pieces[piece[0]]) {
+        buff_pieces[piece[0]].num=buff_pieces[piece[0]].num*1+piece[1]*1;
+    }
+    else {
+        buff_pieces[piece[0]]={};
+        var piece_name="";
+        if (piece[2]==5) {
+            piece_name=translate("itemname"+piece[0]);
+        }
+        if (piece[2]==6) {
+            piece_name=translate("itemname9"+piece[0]);
+        }
+        if (piece[2]==8) {
+            piece_name=translate("itemname9"+piece[0]);
+        }
+        buff_pieces[piece[0]].name=piece_name;
+        buff_pieces[piece[0]].num=piece[1];
+    }
+}
+
+function add_effect(buff_effects, type, effect, v10=false) {
+    if (type==7) {
+        var id=effect[1];
+        if (buff_effects[effect[0]]) {
+            //id=effect[0];
+        }
+        buff_effects[id]="<div class='fate-box'>"+
+        get_fate_text(sgs_fates[effect[0]])+
+        "<br><span class='glyphicon glyphicon-arrow-down"+
+        (v10 ? " vip" : "" )
+        +"'></span><br>"+
+        get_fate_text(sgs_fates[effect[1]])+ "</div>";
+    }
+    else {
+        if (buff_effects[type]) {
+            buff_effects[type]=buff_effects[type]*1+effect*1;
+        }
+        else {
+            buff_effects[type]=effect;
+        }
+    }
+}
+
+for (i in sgs_magic_buff_conf) {
+    var conf=sgs_magic_buff_conf[i];
+    var conf_name=translate("shenbing_name_"+i);
+    var conf_name_shown=false;
+    var conf_non_V10_skill=0;
+    var conf_general=translate2(conf_name);
+    var conf_general_skill=sgs_generals[conf_general].general_naturalskill_id;
+    
+    var buff_pieces_total={};
+    var buff_pieces_total_V10={};
+    var buff_effects_total={};
+    
+    for (j in conf) {
+        var buff=conf[j];
+        var buff_tr=$("<tr>");
+        
+        if (!conf_name_shown) {
+            buff_tr.append($("<td rowspan='11' class='conf-id'>"+i+"</td>"));
+            buff_tr.append($("<td rowspan='11' class='conf-name'>"+conf_name+"</td>"));
+            conf_name_shown=true;
+        }
+        
+        buff_tr.append($("<td>"+j+"重</td>"));
+
+        var normal_buff=buff[0];
+        var buff_pieces={};
+        var buff_effects={};
+        for (var k=1; k<=9; k++) {
+            var buff_detail=normal_buff[k];
+            for (l in buff_detail.forge_piece) {
+                var piece=buff_detail.forge_piece[l];
+                add_piece(buff_pieces, piece);
+                add_piece(buff_pieces_total, piece);
+            }
+            add_effect(buff_effects, buff_detail.buff_type, buff_detail.buff_effect);
+            add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect);
+        }
+        var buff_pieces_text="";
+        for (m in buff_pieces) {
+            var piece=buff_pieces[m];
+            buff_pieces_text+=(buff_pieces_text ? "，" : "");
+            buff_pieces_text+=piece.name+"×"+piece.num;
+        }
+        buff_tr.append($("<td>"+buff_pieces_text+"</td>"));
+        
+        var buff_effects_text="";
+        for (n in buff_effects) {
+            buff_effects_text+=(buff_effects_text ? "<br>" : "");
+            buff_effects_text+=(buff_types[n] ? ""+buff_types[n]+"+" : "") +buff_effects[n]+"";
+        }
+        buff_tr.append($("<td>"+buff_effects_text+"</td>"));
+        
+        var buff_pieces_10={};
+        var buff_effects_10={};
+        var buff_detail=normal_buff[10];
+        for (l in buff_detail.forge_piece) {
+            var piece=buff_detail.forge_piece[l];
+            add_piece(buff_pieces_10, piece);
+            add_piece(buff_pieces_total, piece);
+        }
+        if (buff_detail.buff_type==6) {
+            conf_non_V10_skill++;
+        }
+        add_effect(buff_effects_10, buff_detail.buff_type, buff_detail.buff_effect);
+        add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect);
+        
+        var buff_pieces_text="";
+        for (m in buff_pieces_10) {
+            var piece=buff_pieces_10[m];
+            buff_pieces_text+=(buff_pieces_text ? "，" : "");
+            buff_pieces_text+=piece.name+"×"+piece.num;
+        }
+        buff_tr.append($("<td>"+buff_pieces_text+"</td>"));
+        
+        var buff_effects_text="";
+        for (n in buff_effects_10) {
+            buff_effects_text+=(buff_effects_text ? "<br>" : "");
+            buff_effects_text+=""+ (buff_types[n] ? buff_types[n]+"+" : "") +buff_effects_10[n]+"";
+        }
+        buff_tr.append($("<td>"+buff_effects_text+"</td>"));
+        
+        var buff_pieces_V10={};
+        var buff_effects_V10={};
+        var vip_buff=buff[1];
+        for (o in vip_buff) {
+            var buff_detail=vip_buff[o];
+            for (l in buff_detail.forge_piece) {
+                var piece=buff_detail.forge_piece[l];
+                add_piece(buff_pieces_V10, piece);
+                add_piece(buff_pieces_total_V10, piece);
+            }
+            add_effect(buff_effects_V10, buff_detail.buff_type, buff_detail.buff_effect, true);
+            add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect, true);
+        }
+        var buff_pieces_text="";
+        for (m in buff_pieces_V10) {
+            var piece=buff_pieces_V10[m];
+            buff_pieces_text+=(buff_pieces_text ? "，" : "");
+            buff_pieces_text+=piece.name+"×"+piece.num;
+        }
+        buff_tr.append($("<td>"+buff_pieces_text+"</td>"));
+        
+        var buff_effects_text="";
+        for (n in buff_effects_V10) {
+            buff_effects_text+=(buff_effects_text ? "<br>" : "");
+            buff_effects_text+=""+ (buff_types[n] ? buff_types[n]+"+" : "") +buff_effects_V10[n]+"";
+        }
+        buff_tr.append($("<td>"+buff_effects_text+"</td>"));
+
+        $("#buffs").append(buff_tr);
+    }
+    
+    var buff_tr=$("<tr>");
+    buff_tr.append($("<td>合计</td>"));
+    var buff_pieces_text="";
+    for (m in buff_pieces_total) {
+        var piece=buff_pieces_total[m];
+        buff_pieces_text+=(buff_pieces_text ? "，" : "");
+        buff_pieces_text+=piece.name+"×"+piece.num;
+    }
+    var buff_pieces_text_V10="";
+    for (m in buff_pieces_total_V10) {
+        var piece=buff_pieces_total_V10[m];
+        buff_pieces_text_V10+=(buff_pieces_text_V10 ? "，" : "");
+        buff_pieces_text_V10+=piece.name+"×"+piece.num;
+    }
+    buff_tr.append($("<td>"+buff_pieces_text+"<br><mark class='vip'>V10</mark> "+buff_pieces_text_V10+"</td>"));
+    
+    var buff_effects_text="";
+    var buff_effects_fates="";
+    for (n in buff_effects_total) {
+        if (buff_types[n] && n<5) {
+            buff_effects_text+=(buff_effects_text ? "<br>" : "");
+            buff_effects_text+=""+buff_types[n]+"+"+buff_effects_total[n]+"";
+        }
+        else if (n>10) {
+            buff_effects_fates+=buff_effects_total[n];
+        }
+    }
+    buff_tr.append($("<td>"+buff_effects_text+"</td>"));
+    buff_tr.append($("<td>"+buff_effects_fates+"</td>"));
+    
+    var buff_skills_text="";
+    var buff_skills=sgs_skill_advanced_conf[conf_general_skill];
+    //alert(conf_name+conf_non_V10_skill)
+    for (o in buff_skills) {
+        var general_skill=buff_skills[o];
+        eval("var general_skill_param_value=["+general_skill.desc_param_value+"]");
+        eval("var general_skill_param_step=["+general_skill.desc_param_step+"]");
+        var general_skill_desc=translate(general_skill.desc);
+        var general_skill_level=30+o*1;
+        for (j=0; j<10; j++) {
+            general_skill_desc=general_skill_desc.replace("$"+(j+1),
+                general_skill_param_step[j] ? 
+                ("<mark>"+Math.round((general_skill_param_value[j]+general_skill_param_step[j]*(general_skill_level-1))*100)/100+"</mark>("+general_skill_level+"级数据)") :
+                general_skill_param_value[j]);
+        }
+        general_skill_html=translate(general_skill.short_desc)+
+        "<br><mark>名称</mark>："+translate(general_skill.name)+
+        "<br><mark>类型</mark>："+skill_types[general_skill.skill_type]+
+        "<br><mark>触发</mark>："+translate(general_skill.phase_desc)+
+        "<br><mark>目标</mark>："+translate(general_skill.range_desc)+
+        "<br><mark>效果</mark>："+general_skill_desc+"";
+        buff_skills_text+='<a class="btn btn-default btn-xs'+
+        (o*1 > conf_non_V10_skill ? " vip" : "")+
+        '" data-tooltip-type="detail" data-tooltip="'+general_skill_html+'">'+translate(general_skill.name)+'</a>';
+    }
+    buff_tr.append($("<td colspan='3'><div class='skill-box'>"+buff_skills_text+"</div></td>"));
+    $("#buffs").append(buff_tr);
+}
+</script>
+
+<script>
+/*$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('[data-tooltip-type="detail"]').tooltip({
+        "html": "true",
+        "placement": "left",
+        "trigger": "click hover",
+        "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
+    });
+    
+    //$("#skills tbody tr td:nth-child(2):not(:contains('神'))").filter(":not(:contains('坑'))").parent().hide();
+
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+});*/
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151" language="JavaScript"></script>
+</body>
+</html>
