@@ -30,8 +30,7 @@
                     <th>所需包子数</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
     <div role="tabpanel" class="tab-pane" id="tab-general">
@@ -55,8 +54,7 @@
                     <th>总经验</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
     <div role="tabpanel" class="tab-pane" id="tab-skill">
@@ -70,8 +68,7 @@
                     <th>总共经验神书数</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
     <div role="tabpanel" class="tab-pane active" id="tab-equip">
@@ -89,8 +86,7 @@
                     <th>金锦囊</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+<tbody></tbody>
         </table>
     </div>
 </div>
@@ -185,7 +181,7 @@ for (i = 0 ; i<sgs_upgrade_exp_conf.shen_jinengshengji.length; i++) {
     $("#skill-levels").append(level_tr);
 }
 
-for (i = 0 ; i<360; i++) {
+for (i = 0 ; i<375; i++) {
     var level_tr=$("<tr>");
     level_tr.append($("<td>"+(i+1)+"</td>"));
     level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenwuqi_qianghua[i].num)+"</td>"));
