@@ -181,7 +181,10 @@ for (i = 0 ; i<sgs_upgrade_exp_conf.shen_jinengshengji.length; i++) {
     $("#skill-levels").append(level_tr);
 }
 
-for (i = 0 ; i<375; i++) {
+for (i = 0 ; i<9999; i++) {
+    if (!sgs_upgrade_coin_conf.shenwuqi_qianghua[i])
+        break;
+    
     var level_tr=$("<tr>");
     level_tr.append($("<td>"+(i+1)+"</td>"));
     level_tr.append($("<td>"+Math.floor(sgs_upgrade_coin_conf.shenwuqi_qianghua[i].num)+"</td>"));

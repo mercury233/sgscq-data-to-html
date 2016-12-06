@@ -78,7 +78,7 @@ var fate_addition_types=["坑","攻","防","血","智"];
 var buff_types=["坑","攻","防","血","智","技能等级","技能进阶","缘分改变","天赋点"];
 
 function translate(id) {
-    return sgs_i18n[id] ? sgs_i18n[id].i18n_sb : "暂无文本";
+    return sgs_i18n[id] ? sgs_i18n[id].i18n_sb.replace(/\n/g,"") : "暂无文本";
 }
 function translate2(name) {
     name=name.replace("神兵","");
@@ -184,6 +184,8 @@ for (i in sgs_magic_buff_conf) {
     var buff_pieces_total={};
     var buff_pieces_total_V10={};
     var buff_effects_total={};
+    var buff_talents_total=0;
+    var buff_talents_total_V10=0;
     
     for (j in conf) {
         var buff=conf[j];
@@ -209,6 +211,9 @@ for (i in sgs_magic_buff_conf) {
             }
             add_effect(buff_effects, buff_detail.buff_type, buff_detail.buff_effect);
             add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect);
+            if (buff_detail.buff_type == 8) {
+                buff_talents_total += buff_detail.buff_effect*1;
+            }
         }
         var buff_pieces_text="";
         for (m in buff_pieces) {
@@ -238,6 +243,9 @@ for (i in sgs_magic_buff_conf) {
         }
         add_effect(buff_effects_10, buff_detail.buff_type, buff_detail.buff_effect);
         add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect);
+        if (buff_detail.buff_type == 8) {
+            buff_talents_total += buff_detail.buff_effect*1;
+        }
         
         var buff_pieces_text="";
         for (m in buff_pieces_10) {
@@ -266,6 +274,9 @@ for (i in sgs_magic_buff_conf) {
             }
             add_effect(buff_effects_V10, buff_detail.buff_type, buff_detail.buff_effect, true);
             add_effect(buff_effects_total, buff_detail.buff_type, buff_detail.buff_effect, true);
+            if (buff_detail.buff_type == 8) {
+                buff_talents_total_V10 += buff_detail.buff_effect*1;
+            }
         }
         var buff_pieces_text="";
         for (m in buff_pieces_V10) {
@@ -340,7 +351,7 @@ for (i in sgs_magic_buff_conf) {
         (o*1 > conf_non_V10_skill ? " vip" : "")+
         '" data-tooltip-type="detail" data-tooltip="'+general_skill_html+'">'+translate(general_skill.name)+'</a>';
     }
-    buff_tr.append($("<td colspan='3'><div class='skill-box'>"+buff_skills_text+"</div></td>"));
+    buff_tr.append($("<td colspan='3'><div class='skill-box'>"+buff_skills_text+"</div>"+"<div class='talent-box'>天赋点+"+buff_talents_total+" <mark class='vip'>V10</mark> 天赋点+"+buff_talents_total_V10+"</td>"));
     $("#buffs").append(buff_tr);
 }
 </script>

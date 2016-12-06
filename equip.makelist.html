@@ -97,6 +97,7 @@ var xs={"Cfg":{"System":{}}};
 <script src="data\sgs_refine_conf.js"></script>
 <script src="data\sgs_eated_exp_conf.js"></script>
 <script src="data\sgs_fates.js"></script>
+<script src="data\sgs_magic_buff_conf.js"></script>
 
 
 <script>
@@ -107,6 +108,7 @@ var sgs_upgrade_exp_conf=xs.Cfg.System.sgs_upgrade_exp_conf;
 var sgs_refine_conf=xs.Cfg.System.sgs_refine_conf;
 var sgs_eated_exp_conf=xs.Cfg.System.sgs_eated_exp_conf;
 var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_magic_buff_conf=xs.Cfg.System.sgs_magic_buff_conf;
 
 var grade_types=["坑","神","金","银","铜","魔"];
 var equip_types=["坑","武器","防具","坐骑","锦囊"];
@@ -175,6 +177,30 @@ for (i in sgs_equipments) {
                         equip_fate_general_name=translate(sgs_generals[k].name);
                     }
                 }
+            }
+            if (equip_fate_general_name == "") {
+                for (m in sgs_magic_buff_conf) {
+                    var conf=sgs_magic_buff_conf[m];
+                    var conf_name=translate("shenbing_name_"+m);
+                    for (n in conf) {
+                        var buff=conf[n];
+                        var buff_detail=buff[0][10];
+                        if (buff_detail.buff_type==7 && buff_detail.buff_effect[1]==sgs_fates[j].id) {
+                            equip_fate_general_name=conf_name;
+                        }
+                        var vip_buff=buff[1];
+                        for (o in vip_buff) {
+                            var buff_detail=vip_buff[o];
+                            if (buff_detail.buff_type==7 && buff_detail.buff_effect[1]==sgs_fates[j].id) {
+                            equip_fate_general_name=conf_name;
+                        }
+                        }
+                    }
+                }
+            }
+            if (equip_fate_general_name == "") {
+                //continue;
+                equip_fate_general_name = "神秘缘分";
             }
             fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
             equip_fate_html+="<mark>"+equip_fate_general_name+"</mark>：<mark>"+translate(fate.name)+"</mark>："+fate_effect+"<br>";
