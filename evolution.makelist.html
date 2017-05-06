@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>三国杀传奇觉醒数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="三国杀传奇,觉醒,消耗,材料,技能,数据" />
+<meta name="description" content="本页面展示了目前三国杀传奇所有武将觉醒的所有数据，包括消耗材料、属性、缘分等。" />
+<meta name="renderer" content="webkit" />
+<link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped" id="buffs">
+            <thead>
+                <tr>
+                    <th class="shorttitle">ID</th>
+                    <th class="shorttitle text-center" colspan="2">觉醒</th>
+                    <th class="middletitle">第一重</th>
+                    <th class="middletitle">第二重</th>
+                    <th class="middletitle">第三重</th>
+                    <th class="middletitle">第四重</th>
+                    <th class="middletitle">第五重</th>
+                </tr>
+            </thead>
+<tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <a class="btn btn-default" href="./" role="button">返回首页</a>
+            <a class="btn btn-default" href="http://tieba.baidu.com/home/main?un=%E6%B3%A2%E7%BD%97%E4%B8%81%E7%89%8C%E7%81%AD%E7%81%AB%E5%99%A8&ie=utf-8" target="_blank" role="button"  data-toggle="tooltip" data-html="true" data-container="body" title="<div class='text-left'>作者出没于贴吧，去贴吧与作者交♂流。</div>">作者：波罗丁牌灭火器</a>
+            <button class="btn btn-default" id="releasenotesbutton" data-container="body">查看版本更新说明</button>
+            <div id="releasenotes">
+                <div class="text-left wide">
+                    <p>版本：5.4正式服</p>
+                    <p>更新记录：</p>
+                    <ul>
+                        <li>2016-05-20 内测</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+var xs={"Cfg":{"System":{}}};
+</script>
+
+<script src="data\sgs_i18n.js"></script>
+<script src="data\sgs_generals.js"></script>
+<script src="data\sgs_skills.js"></script>
+<script src="data\sgs_fates.js"></script>
+<script src="data\sgs_resource.js"></script>
+<script src="data\sgs_surrender.js"></script>
+<script src="data\sgs_evolution.js"></script>
+<script src="data\sgs_evolution_buff_conf.js"></script>
+<script src="data\sgs_evolution_surrender.js"></script>
+<script src="data\sgs_evolution_open_conf.js"></script>
+
+
+<script>
+var sgs_generals=xs.Cfg.System.sgs_generals;
+var sgs_i18n=xs.Cfg.System.sgs_i18n;
+var sgs_skills=xs.Cfg.System.sgs_skills;
+var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_surrender=xs.Cfg.System.sgs_surrender;
+var sgs_resource=xs.Cfg.System.sgs_resource;
+var sgs_evolution=xs.Cfg.System.sgs_evolution;
+var sgs_evolution_buff_conf=xs.Cfg.System.sgs_evolution_buff_conf;
+var sgs_evolution_surrender=xs.Cfg.System.sgs_evolution_surrender;
+var sgs_evolution_open_conf=xs.Cfg.System.sgs_evolution_open_conf;
+
+var grade_types=["坑","神","金","银","铜","魔"];
+var skill_types=["坑","攻击","控场","卖血","被动"];
+var fate_addition_types=["坑","攻","防","血","智"];
+var buff_types=["坑","攻击","防御","血量","智力","获得武将新形象","获得新臣服任务","升级属性","副将技能","所有缘分属性","可选缘分","坑","神国武将属性"];
+var sub_names=["坑","天枢星","天璇星","天玑星","天权星","玉衡星","开阳星","瑶光星"];
+
+function translate(id) {
+    return sgs_i18n[id] ? sgs_i18n[id].i18n_sb.replace(/\n/g,"") : "暂无文本";
+}
+
+function get_fate_text(fate) {
+    var fate_desc="";
+    switch (fate.fate_type*1) {
+        case 1: //武将
+            fate_desc="同时上阵";
+            for (var k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 2: //未知
+            fate_desc="";
+            //alert(fate);
+            for (var k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 3: //装备
+            fate_desc="装备";
+            for (var k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        case 4: //技能
+            fate_desc="装备";
+            for (var k in fate.fate_object) {
+                fate_desc+=translate(fate.fate_object[k]+"01")+",";
+            }
+        break;
+        default:
+            //alert(fate);
+        break;
+    }
+    fate_effect="<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%";
+    if (fate.fate_effect_step>0) {
+        fate_effect="其中首个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect+"%,每多1个<mark>"+fate_addition_types[fate.fate_addition_type]+"</mark>+"+fate.fate_effect_step+"%";
+    }
+    return'<a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+fate_desc+fate_effect+'">'+translate(fate.name)+'</a>';
+}
+
+function add_piece(buff_pieces, piece) {
+    if (buff_pieces[piece[0]]) {
+        buff_pieces[piece[0]].num=buff_pieces[piece[0]].num*1+piece[1]*1;
+    }
+    else {
+        buff_pieces[piece[0]]={};
+        var piece_name="";
+        if (piece[2]==5) {
+            piece_name=translate("itemname"+piece[0]);
+        }
+        if (piece[2]==6) {
+            piece_name=translate("itemname9"+piece[0]);
+        }
+        if (piece[2]==8) {
+            piece_name=translate("itemname9"+piece[0]);
+        }
+        buff_pieces[piece[0]].name=piece_name;
+        buff_pieces[piece[0]].num=piece[1];
+    }
+}
+function get_piect_text(buff_pieces) {
+    var buff_pieces_text="";
+    for (var m in buff_pieces) {
+        var piece=buff_pieces[m];
+        buff_pieces_text+=(buff_pieces_text ? "，" : "");
+        buff_pieces_text+=piece.name+"×"+piece.num;
+    }
+    return buff_pieces_text;
+}
+
+function add_effect(buff_effects, type, effect) {
+    if (type<=4 || type==7 || type==8 || type==9) {
+        if (buff_effects[type]) {
+            buff_effects[type]=buff_effects[type]*1+effect*1;
+        }
+        else {
+            buff_effects[type]=effect;
+        }
+    }
+    else if (type==12) {
+        buff_effects[type].general_name=translate(effect[0]+"01");
+        add_effect(buff_effects[type], effect[1], effect[2]);
+    }
+}
+
+for (i in sgs_evolution) {
+    var evo=sgs_evolution[i];
+    var evo_name=translate(evo.general_id+"01");
+    var evo_id=evo.evolution_id;
+    
+    var buff_pieces_total={};
+    var buff_effects_total={};
+    buff_effects_total[12]={};
+    
+    var buff_tr=$("<tr>");
+    buff_tr.append($("<td rowspan='9' class='conf-id'>"+evo_id+"</td>"));
+    buff_tr.append($("<td rowspan='9' class='conf-name'>"+evo_name+"</td>"));
+    buff_tr.append($("<td>开启</td>"));
+    var open_conf=sgs_evolution_open_conf[evo_id];
+    var opens=[];
+    for (var p in open_conf) {
+        var open=open_conf[p];
+        if (open.type==3)
+            opens.push(""+translate(open.object_id+"01")+"魂魄×"+open.condition);
+        else if (open.type==4)
+            opens.push(""+translate("itemname"+open.object_id)+"×"+open.condition);
+        else
+            opens.push(translate(open.condition_desc));
+    }
+    buff_tr.append($("<td colspan='5'>"+opens.join("，")+"</td>"));
+    $("#buffs").append(buff_tr);
+
+    var conf=sgs_evolution_buff_conf[evo_id];
+
+    for (var j=1; j<=7; j++) {
+        var buff_tr=$("<tr>");
+        buff_tr.append($("<td class='conf-head'>"+sub_names[j]+"</td>"));
+        for (var k=1; k<=5; k++) {
+            var buff=conf[k][j];
+            var sub=buff[0];
+            var buff_pieces=[];
+            for (var l in sub.item_list) {
+                var piece=sub.item_list[l];
+                add_piece(buff_pieces, piece);
+                add_piece(buff_pieces_total, piece);
+            }
+
+            if (sub.buff_type==5) {
+                buff_tr.append($("<td>"+get_piect_text(buff_pieces)+"<br/>"+'<a class="btn btn-default btn-xs" data-popover-type="image" data-src="http://cqzx.sanguosha.com/hd_resource/'+
+                sgs_resource[evo.resource_id].hd_url+'">获得武将新形象</a>'+"</td>"));
+            }
+            else if (sub.buff_type==6) {
+                var general_surrender_html="";
+                for (var o in sgs_evolution_surrender[evo.general_id]) {
+                    var surrender=sgs_surrender[o];
+                    general_surrender_html+="<mark>"+translate(surrender.surrender_title)+"</mark>："+translate(surrender.surrender_desc)+"<br>";
+                }
+                if (evo.surrender_gift_id) {
+                    general_surrender_html+="<mark>臣服奖励</mark>："+translate("itemdesc"+evo.surrender_gift_id);
+                }
+                buff_tr.append($("<td>"+get_piect_text(buff_pieces)+"<br/>"+'<a class="btn btn-default btn-xs" data-tooltip-type="detail" data-tooltip="'+general_surrender_html+'">获得新臣服任务</a>'+"</td>"));
+            }
+            else if (sub.buff_type==10) {
+                /*
+                var fates=[];
+                for (var m in buff) {
+                    //alert(m);
+                    var sub=buff[m];
+                    for (var n in sub.buff_effect) {
+                        var fate=sub.buff_effect[n];
+                        if (!fates.includes(fate))
+                            fates.push(fate);
+                    }
+                }
+                for (var n in fates) {
+                    fates[n]=get_fate_text(sgs_fates[fates[n]]);
+                }
+                buff_tr.append($("<td>"+items.join("，")+"<br/>"+fates.join(" ")+"</td>"));
+                */
+                buff_tr.append($("<td>"+get_piect_text(buff_pieces)+"<br/>"+
+                get_fate_text(sgs_fates[sub.buff_effect[0]])+
+                " <span class='glyphicon glyphicon-transfer fate-switch'></span> "+
+                get_fate_text(sgs_fates[sub.buff_effect[1]])+"</td>"));
+            }
+            else {
+                add_effect(buff_effects_total, sub.buff_type, sub.buff_effect);
+                buff_tr.append($("<td>"+get_piect_text(buff_pieces)+"<br/>"+sub.buff_desc+"</td>"));
+            }
+        }
+        $("#buffs").append(buff_tr);
+    }
+    var buff_tr=$("<tr>");
+    buff_tr.append($("<td class='conf-head'>合计</td>"));
+    var buff_effects_text="";
+    for (var n in buff_effects_total) {
+        if (n<=4) {
+            buff_effects_text+=(buff_effects_text ? "，" : "");
+            buff_effects_text+=""+buff_types[n]+"+"+buff_effects_total[n]+"";
+        }
+        else if (n==7) {
+            var buff_effect_html="400级面板：";
+            buff_effect_html+="<br><mark>血</mark>+"+Math.round(sgs_generals[evo.general_id].general_hp_step*399*(1+buff_effects_total[n]/100))
+            buff_effect_html+="<br><mark>攻</mark>+"+Math.round(sgs_generals[evo.general_id].general_attack_step*399*(1+buff_effects_total[n]/100))
+            buff_effect_html+="<br><mark>防</mark>+"+Math.round(sgs_generals[evo.general_id].general_defense_step*399*(1+buff_effects_total[n]/100))
+            buff_effect_html+="<br><mark>智</mark>+"+Math.round(sgs_generals[evo.general_id].general_wisdom_step*399*(1+buff_effects_total[n]/100))
+            buff_effects_text+='，<span data-tooltip-type="detail" data-tooltip="'+buff_effect_html+'">升级属性提升'+buff_effects_total[n]+"%</span>";
+        }
+        else if (n==8) {
+            buff_effects_text+="，副将技能提升"+buff_effects_total[n]+"%";
+        }
+        else if (n==9) {
+            buff_effects_text+="，所有缘分属性提升"+buff_effects_total[n]+"%";
+        }
+        else if (n==12) {
+            buff_effect=buff_effects_total[n];
+            for (var o=1; o<=4; o++) {
+                if (buff_effect[o]) {
+                    buff_effects_text+="，" +buff_effect.general_name+buff_types[o]+"+"+buff_effect[o];
+                }
+            }
+        }
+    }
+    buff_tr.append($("<td colspan='5'>"+get_piect_text(buff_pieces_total)+"<br/>"+buff_effects_text+"</td>"));
+    $("#buffs").append(buff_tr);
+
+}
+</script>
+
+<script>
+$(function () {
+    /*
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('[data-tooltip-type="detail"]').tooltip({
+        "html": "true",
+        "placement": "auto bottom",
+        "trigger": "click hover",
+        "title": function() {return "<div class='text-left my-mark'>"+$(this).data("tooltip")+"</div>";}
+    });
+
+    $('[data-popover-type="image"]').popover({
+        "html": "true",
+        "placement": "right",
+        "container": "body",
+        "template": '<div class="popover hd" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        "content": function() {return "<img src='"+$(this).data("src")+"'/>";}
+    });
+
+    $("#releasenotesbutton").tooltip({
+        "html": "true",
+        "placement": "top",
+        "title": $("#releasenotes").html()
+    });
+    */
+});
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1255875151&web_id=1255875151" language="JavaScript"></script>
+</body>
+</html>

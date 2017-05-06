@@ -89,6 +89,7 @@ var xs={"Cfg":{"System":{}}};
 <script src="data\sgs_generals.js"></script>
 <script src="data\sgs_skills.js"></script>
 <script src="data\sgs_fates.js"></script>
+<script src="data\sgs_resource.js"></script>
 <script src="data\sgs_surrender.js"></script>
 <script src="data\sgs_general_surrender.js"></script>
 
@@ -97,6 +98,7 @@ var sgs_generals=xs.Cfg.System.sgs_generals;
 var sgs_i18n=xs.Cfg.System.sgs_i18n;
 var sgs_skills=xs.Cfg.System.sgs_skills;
 var sgs_fates=xs.Cfg.System.sgs_fates;
+var sgs_resource=xs.Cfg.System.sgs_resource;
 var sgs_surrender=xs.Cfg.System.sgs_surrender;
 var sgs_general_surrender=xs.Cfg.System.sgs_general_surrender;
 var grade_types=["坑","神","金","银","铜","魔"];
@@ -117,7 +119,8 @@ for (i in sgs_generals) {
     var general_name=translate(general.name);
     general_tr.append($("<td>"+general.id+"</td>"));
     general_tr.append($("<td>"+grade_types[general.grade]+"</td>"));
-    general_tr.append($("<td>"+general_name+"</td>"));
+    general_tr.append($("<td>"+general_name+' <a class="btn btn-default btn-xs" data-popover-type="image" data-src="http://cqzx.sanguosha.com/hd_resource/'+
+                sgs_resource[general.resource_id].hd_url+'"><span class="glyphicon glyphicon-search"></span></a>'+"</td>"));
     
     if (general.grade!=5) {
         general_tr.append($("<td>"+general.general_hp+"</td>"));
@@ -268,6 +271,13 @@ for (i in sgs_generals) {
     $('[data-tooltip-type="devil"]').tooltip({
         "placement": "bottom",
         "title": function() {return "考虑到魔将突破的额外属性，数值应视为"+$(this).data("tooltip");}
+    });
+    $('[data-popover-type="image"]').popover({
+        "html": "true",
+        "placement": "right",
+        "container": "body",
+        "template": '<div class="popover hd" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        "content": function() {return "<img src='"+$(this).data("src")+"'/>";}
     });
     
     $("#releasenotesbutton").tooltip({
